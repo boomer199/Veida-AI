@@ -240,7 +240,7 @@ def delete_user(user_data):
     users_collection = db.users
     users_collection.delete_one({'clerk_id': user_data['id']})
 
-def make_course(clerk_id, course_name, description, exam_date, notes, flashcards):
+def make_course(clerk_id, course_name, description, exam_date, notes, flashcards, course_schedule,multiple_choice_questions):
     """
     Create a new course for a user.
 
@@ -257,16 +257,23 @@ def make_course(clerk_id, course_name, description, exam_date, notes, flashcards
     Returns:
         None
     """
+
+    #!mock course schedule
+    
+
     new_course = {
         "course_name": course_name,
         "description": description,
         "notes": notes,
         "description": description,
         "exam_date": exam_date,
+        "course_schedule": course_schedule,
         "flashcards": flashcards,
         "review_dates": generate_review_dates(datetime.datetime.now(),exam_date), #for spaced intervals of the content
+        "multiple_choice_questions": multiple_choice_questions,
         "created_at": datetime.datetime.now(),
         "updated_at": datetime.datetime.now()
+
     }
     courses_collection.update_one(
         {"clerk_id": clerk_id},

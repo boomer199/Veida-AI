@@ -10,7 +10,7 @@ const CreateCoursePage = () => {
     };
 
     return (
-        <div>
+        <div >
             <h1>Create a New Course</h1>
             <CreateCourse onCourseCreated={handleCourseCreated} />
         </div>
