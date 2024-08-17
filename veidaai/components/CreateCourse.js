@@ -13,6 +13,15 @@ const CreateCourse = ({ onCourseCreated }) => {
     const [file, setFile] = useState(null);
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
+    const [courseSchedule,setCourseSchedule] = useState({
+        Monday: "",
+        Tuesday: "",
+        Wednesday: "",
+        Thursday: "",
+        Friday: "",
+        Saturday: "",
+        Sunday: "",
+    });
 
     const validateCourseName = (name) => {
         const invalidChars = /[.!~*'()]/;
@@ -21,6 +30,13 @@ const CreateCourse = ({ onCourseCreated }) => {
 
     const handleFileChange = (e) => {
         setFile(e.target.files[0]);
+    };
+
+    const handleCourseScheduleChange = (day,time) => {
+        setCourseSchedule((prevSchedule) => ({
+            ...prevSchedule,
+            [day]: time,
+        }));
     };
 
     const handleSubmit = async (e) => {
@@ -46,6 +62,7 @@ const CreateCourse = ({ onCourseCreated }) => {
         formData.append('course_name', name);
         formData.append('description', description);
         formData.append('exam_date', examDate);
+    
 
         try {
             const extractResponse = await fetch('http://localhost:8080/api/extract_text', {
@@ -62,7 +79,7 @@ const CreateCourse = ({ onCourseCreated }) => {
             const extractedData = await extractResponse.json();
             const notes = extractedData.notes || {};
             const flashcards = extractedData.flashcards || [];
-
+            const mc_questions = extractedData.mc_questions || [];
             const createResponse = await fetch('http://localhost:8080/api/create_course', {
                 method: 'POST',
                 headers: {
@@ -75,6 +92,8 @@ const CreateCourse = ({ onCourseCreated }) => {
                     exam_date: examDate,
                     notes: notes,
                     flashcards: flashcards,
+                    mc_questions: mc_questions,
+                    course_schedule: courseSchedule,
                 }),
             });
 
@@ -86,12 +105,23 @@ const CreateCourse = ({ onCourseCreated }) => {
                     exam_date: examDate,
                     notes: notes,
                     flashcards: flashcards,
+                    mc_questions: mc_questions,
+                    course_schedule: courseSchedule,
                 });
                 setName('');
                 setDescription('');
                 setExamDate('');
                 setFile(null);
                 setError('');
+                setCourseSchedule({
+                    Monday: "",
+                    Tuesday: "",
+                    Wednesday: "",
+                    Thursday: "",
+                    Friday: "",
+                    Saturday: "",
+                    Sunday: "",
+                });
                 router.push('/client'); // Redirect to the course list page
             } else {
                 const errorData = await createResponse.json();
@@ -106,7 +136,11 @@ const CreateCourse = ({ onCourseCreated }) => {
     };
 
     return (
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100vh' }}>
         <form onSubmit={handleSubmit}>
+            <div>
+                <h1>Course Details</h1>
+            </div>
             <input
                 type="text"
                 value={name}
@@ -129,6 +163,17 @@ const CreateCourse = ({ onCourseCreated }) => {
                 required
                 disabled={loading}
             />
+
+            <div>
+                <h3>Course Schedule</h3>
+                {Object.keys(courseSchedule).map((day) => (
+                    <div key={day}>
+                        <label>{day}: </label>
+                        <input type="time" value={courseSchedule[day]} onChange={(e) => handleCourseScheduleChange(day, e.target.value)} />
+                    </div>
+                ))}
+            </div>
+
             <input
                 type="file"
                 onChange={handleFileChange}
@@ -138,8 +183,9 @@ const CreateCourse = ({ onCourseCreated }) => {
             <button type="submit" disabled={loading}>
                 {loading ? 'Creating Course...' : 'Create Course'}
             </button>
-            {error && <p style={{ color: 'red' }}>{error}</p>}
-        </form>
+                {error && <p style={{ color: 'red' }}>{error}</p>}
+            </form>
+        </div>
     );
 };
 

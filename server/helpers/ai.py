@@ -86,20 +86,22 @@ def generate_mc_questions(notes):
     5. **Application:** Using concepts or formulas to solve problems or perform calculations.
         Example: How would you calculate the gravitational force between the Earth and the Moon using Newton's Law of Gravity?
 
-    Please generate a multiple-choice question based on the provided concept and principles and follow the JSON format below.
-    {
-        "concept": "Concept Name",
-        "question_type": "Synthesis/Comparison/Context/Etc.",
-        "question": "Your question here?",
-        "possible_answers": [
-            "Option A",
-            "Option B",
-            "Option C",
-            "Option D"
-        ],
-        "correct_answer": "Correct Option",
-        "why": "Explanation of why this answer is correct."
-    }
+    Please generate 2 multiple-choice question based on the provided concept and principles and follow the JSON format below.
+    [
+        {
+            "concept": "Concept Name",
+            "question_type": "Synthesis/Comparison/Context/Etc.",
+            "question": "Your question here?",
+            "possible_answers": [
+                "Option A",
+                "Option B",
+                "Option C",
+                "Option D"
+            ],
+            "correct_answer": "Correct Option",
+            "why": "Explanation of why this answer is correct."
+        }
+    ]
 
     Please make sure to follow this structure exactly for each question generated.
     """
@@ -110,16 +112,16 @@ def generate_mc_questions(notes):
             {"role": "user", "content": notes}
         ]
     )
-    json_mc_questions = parse_mc_questions(multiple_choice_questions)
+    output = multiple_choice_questions.choices[0].message.content
+    json_mc_questions = parse_mc_questions(output)
 
-    return json_mc_questions
-
-
-
-
-
-
-
+    if json_mc_questions:
+        mc_questions = []
+        for question in json_mc_questions:
+            mc_questions.append(question)
+        return mc_questions
+    else:
+        return []
 
 
 

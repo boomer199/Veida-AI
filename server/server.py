@@ -28,7 +28,8 @@ from helpers.mongo import (
 )
 from helpers.ai import (
     generate_flashcards,
-    generate_notes
+    generate_notes,
+    generate_mc_questions
 )
 from PIL import Image, UnidentifiedImageError
 import pytesseract
@@ -180,8 +181,10 @@ def extract_text():
         # Call the functions with extracted_text
         notes = generate_notes(extracted_text)
         flashcards = generate_flashcards(notes)
+        mc_questions = generate_mc_questions(notes)
+  
 
-        return jsonify({"notes": notes, "flashcards": flashcards}), 200
+        return jsonify({"notes": notes, "flashcards": flashcards, "mc_questions": mc_questions}), 200
     except UnidentifiedImageError:
         return jsonify({"error": "Unsupported image type"}), 400
     except Exception as e:
@@ -205,12 +208,14 @@ def route_create_course():
     description = data.get('description', '')
     exam_date = data.get('exam_date', '')
     notes = data.get('notes', {})
+    mc_questions = data.get('mc_questions', [])
     flashcards = data.get('flashcards', [])
+    course_schedule = data.get('course_schedule', {})
 
     if not all([clerk_id, course_name, description, exam_date]):
         return jsonify({"error": "Missing required fields"}), 400
 
-    make_course(clerk_id, course_name, description, exam_date, notes, flashcards)
+    make_course(clerk_id, course_name, description, exam_date, notes, flashcards, course_schedule, mc_questions)
     return jsonify({"message": "Course created successfully"}), 201
 
 @app.route('/api/create_or_update_notes', methods=['POST'])
