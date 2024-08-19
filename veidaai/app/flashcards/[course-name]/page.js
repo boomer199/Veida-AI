@@ -28,6 +28,7 @@ function FlashcardPage() {
   const fetchFlashcards = async () => {
     try {
       const response = await fetch(`https://veida-ai-backend-production.up.railway.app/api/get_flashcards?clerk_id=${userId}&course_name=${courseName}`, {
+
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -57,7 +58,7 @@ function FlashcardPage() {
     <div className="main-inline">
       <div className="center-flex-container">
         <h1 className="title">
-          {reviewing ? `${courseName} Flashcard Review` : `Your Flashcards for ${courseName}`}
+          {reviewing ? `${courseName} Flashcard Review` : `Your Flashcards Generated for ${courseName}`}
         </h1>
         {error && <p style={{ color: 'red' }}>{error}</p>}
         

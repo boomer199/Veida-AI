@@ -8,7 +8,9 @@ const FlashcardPage = ({ courseName }) => {
 
   const fetchFlashcards = async () => {
     try {
-      const response = await fetch(`https://veida-ai-backend-production.up.railway.app/api/get_flashcards?clerk_id=${userId}&course_name=${courseName}`, {
+
+       const response = await fetch(`https://veida-ai-backend-production.up.railway.app/api/get_flashcards?clerk_id=${userId}&course_name=${courseName}`, {
+
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -21,7 +23,7 @@ const FlashcardPage = ({ courseName }) => {
       } else {
         setError('Failed to fetch flashcards');
       }
-    } catch (err) {
+    } catch (error) {
       setError('An error occurred while fetching flashcards');
     }
   };

@@ -173,7 +173,7 @@ const CreateCourse = ({ onCourseCreated, onClose }) => {
                     onChange={(e) => setExamDate(e.target.value)}
                 />
 
-            <div>
+            {/* <div>
                 <h3>Course Schedule</h3>
                 {Object.keys(courseSchedule).map((day) => (
                     <div key={day}>
@@ -181,7 +181,7 @@ const CreateCourse = ({ onCourseCreated, onClose }) => {
                         <input type="time" value={courseSchedule[day]} onChange={(e) => handleCourseScheduleChange(day, e.target.value)} />
                     </div>
                 ))}
-            </div>
+            </div> */}
 
                 <label htmlFor="courseContent">Course Content - PDF, PNG, JPEG</label>
                 <input
