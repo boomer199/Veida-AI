@@ -5,6 +5,13 @@ import './flashcard-component.css';
 
 const FlashCard = forwardRef(({ card, size = 'normal', frontStyle, backStyle }, ref) => {
     const [flipped, setFlipped] = useState(false);
+    const [timerId, setTimerId] = useState(null);
+
+    // const frontStyle = ( flipped ? {display: 'none'} : {display: 'inline'} );
+    // const backStyle = ( flipped ? {display: 'inline'} : {display: 'none'} );
+    // const frontStyle = ( flipped ? {visibility: 'hidden'} : {visiblity: 'visible'} );
+    // const backStyle = ( flipped ? {visiblity: 'visible'} : {visibility: 'hidden'} );
+    var frontStyle, backStyle;
 
     function handleClick() {
         setFlipped(!flipped);
