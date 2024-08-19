@@ -393,6 +393,20 @@ def remove_flashcard(clerk_id, course_name, card_id):
         {"$pull": {"courses.$.flashcards": {"id": card_id}}}
     )
 
+def get_mcqs(clerk_id,course_name):
+
+
+    
+    user_course = courses_collection.find_one({"clerk_id": clerk_id, "courses.course_name": course_name})
+    if user_course and 'courses' in user_course:
+        for course in user_course['courses']:
+            if course['course_name'] == course_name:
+                return course['multiple_choice_questions']
+    return None
+
+
+
+
 def get_flashcards(clerk_id, course_name):
     """
     Retrieve all flashcards for a specific course.

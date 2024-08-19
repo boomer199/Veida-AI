@@ -15,6 +15,7 @@ from helpers.mongo import (
     remove_flashcard,
     get_flashcards,
     get_courses,
+    get_mcqs,
     delete_course,
     edit_flashcard,
     edit_note,
@@ -344,6 +345,26 @@ def route_remove_flashcard():
 
     remove_flashcard(clerk_id, course_name, card_id)
     return jsonify({"message": "Flashcard removed successfully"}), 200
+
+
+@app.route('/api/get_mcqs', methods=['GET'])
+def route_get_mcqs():
+
+    """ 
+    Retrieves all MCQs for a course
+    
+    This endpoint accepts a GET request with the query params. Returning a dictionary of questions
+    """
+
+
+    clerk_id = request.args.get('clerk_id')
+    course_name = request.args.get('course_name')
+
+    if not all([clerk_id, course_name]):
+        return jsonify({"error": "Missing required parameters"}), 400
+    
+    mcqs = get_mcqs(clerk_id, course_name)
+    return jsonify({"mcqs":mcqs}), 200
 
 @app.route('/api/get_flashcards', methods=['GET'])
 def route_get_flashcards():
