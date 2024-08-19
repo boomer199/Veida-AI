@@ -1,4 +1,4 @@
-#card-container {
+.card-container {
     width: 280px;
     height: 300px;
     padding: 1rem;
@@ -10,7 +10,7 @@
 }
 
 @media only screen and (max-width: 781px) {
-    #card-container {
+    .card-container {
         width: 40vw;
         height: auto;
         min-height: 200px;
@@ -19,11 +19,58 @@
     }
 }
 
-#card-container:hover {
+.card-container:hover {
     border: 1px solid white;
-    transform: translate(3px, 3px);
+    /* -webkit-transform: translate(3px, 3px);
+            transform: translate(3px, 3px); */
 }
 
-#card-container p {
+/* #card-container p {
     cursor: auto;
+} */
+
+/***************/
+/* flip effect */
+/***************/
+
+/* #card-container:hover {
+    transition: 0.8s ease;
+    -webkit-transform: rotateY(-180deg);
+            transform: rotateY(-180deg);
+} */
+
+.card-container {
+    -webkit-perspective: 150rem;
+            perspective: 150rem;
+    -moz-perspective: 150rem;
 }
+
+.card-side {
+    -webkit-transition: all 0.8s ease;
+            transition: all 0.8s ease;
+    /* -webkit-backface-visibility: hidden;
+            backface-visibility: hidden; */
+}
+
+.card-front {
+    -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+}
+
+.card-back {
+    position: absolute;
+    top: 1em;
+    -webkit-transform: rotateY(180deg);
+             transform: rotateY(180deg);
+    visibility: hidden;
+}
+
+/* .card-container:hover > .card-front {
+    -webkit-transform: rotateY(-180deg);
+            transform: rotateY(-180deg);
+}
+
+.card-container:hover > .card-back {
+    -webkit-transform: rotateY(0deg);
+             transform: rotateY(0deg);
+} */
