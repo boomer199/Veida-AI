@@ -1,0 +1,28 @@
+/* div#cards-available {
+}
+
+button#review-button {
+} */
+
+div#cards-preview {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: start;
+    gap: 1.5rem;
+
+    margin-top: 1.5rem;
+    padding: 2rem;
+}
+
+@media only screen and (max-width: 781px) {
+    div#cards-preview {
+        padding: 0.5rem;
+        gap: 6vw;
+    }
+}
+
+#review-container {
+    /* border: 1px solid red; */
+    padding: 2rem;
+    row-gap: 2rem;
+}
