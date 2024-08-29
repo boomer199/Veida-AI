@@ -1,0 +1,126 @@
+.mcqs-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    height: 100vh;
+    background-color: #1e1e1e;
+    color: #f0f0f0;
+    font-family: 'Poppins', sans-serif;
+    padding: 5%;
+}
+
+.mcqs-header {
+    font-size: 2.5rem;
+    margin-top: 4rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    color: #f0f0f0;
+}
+
+.error-message {
+    color: red;
+    margin: 0.6rem 0 1rem 0;
+}
+
+.question-container {
+    background-color: #27272a;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    max-width: 600px;
+    width: 100%;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.question-concept {
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
+}
+
+.question-text {
+    font-size: 1.2rem;
+    font-weight: 400;
+    margin-bottom: 2rem;
+}
+
+.answers-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.answer-button {
+    padding: 1rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+    font-weight: 500;
+    background-color: white;
+    color: black;
+}
+
+.answer-button:hover {
+    background-color: #e0e0e0;
+}
+
+.answer-button.selected {
+    background-color: #a9a9a9;
+}
+
+.submit-button, .next-button, .end-session-button {
+    padding: 1rem 2rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #1f2937;
+    background-color: #6d9dc5;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-top: 1rem;
+}
+
+.submit-button:hover, .next-button:hover, .end-session-button:hover {
+    background-color: #478fca;
+    transform: translateY(-2px);
+}
+
+.feedback-message {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+}
+
+.correct-answer {
+    color: green;
+}
+
+.incorrect-answer {
+    color: red;
+}
+
+.answer-description {
+    font-size: 1rem;
+    margin-top: 1rem;
+    color: #d1d5db;
+}
+
+@media (max-width: 781px) {
+    .answers-grid {
+        grid-template-columns: 1fr; /* Change to a single column layout */
+    }
+
+    .mcqs-header {
+        font-size: 2rem;
+    }
+}
