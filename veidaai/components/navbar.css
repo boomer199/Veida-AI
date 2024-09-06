@@ -1,5 +1,5 @@
 .Navbar {
-    background-color: rgba(39, 39, 42, 0.8);
+    background-color: #252528;
     padding: 10px 20px;
     width: 100%;
     position: fixed;
@@ -21,6 +21,47 @@
     width: 170px;
 }
 
+.left {
+    z-index: 1001;
+    display: flex;
+    align-items: center;
+}
+
+.right-group {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end; /* Aligns the hamburger and userButton to the right */
+    flex-grow: 1;
+}
+
+.hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 24px;
+    height: 18px;
+    cursor: pointer;
+}
+
+.hamburger .line {
+    width: 100%;
+    height: 3px;
+    background-color: white;
+    transition: all 0.3s ease;
+}
+
+.hamburger .line.open:nth-child(1) {
+    transform: translateY(7.5px) rotate(45deg);
+}
+
+.hamburger .line.open:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger .line.open:nth-child(3) {
+    transform: translateY(-7.5px) rotate(-45deg);
+}
+
 .right {
     display: flex;
     gap: 30px;
@@ -34,6 +75,7 @@
     font-weight: 500;
     transition: color 0.3s;
     font-family: 'Poppins', sans-serif;
+    cursor: pointer;
 }
 
 .right a:hover {
@@ -41,15 +83,23 @@
 }
 
 .login-button,
-.signup-button {
+.signup-button,
+.premium-button {
     padding: 8px 16px;
     border: none;
     border-radius: 4px;
-    font-size: 14px;
+    font-size: 16px; /* Same font size for buttons */
     font-weight: 500;
     text-transform: uppercase;
     transition: background-color 0.3s;
     font-family: 'Poppins', sans-serif;
+    cursor: pointer;
+    white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 36px;
+    margin: 0;
 }
 
 .login-button {
@@ -62,30 +112,143 @@
     color: #27272a;
 }
 
-.login-button:hover {
-    background-color: #3f3f46;
-}
-.signup-button:hover {
-    background-color: #ffffff;
-}
-
-.userButton {
-    margin-left: 20px;
-}
-
 .premium-button {
     background-color: #6d9dc5;
     color: #27272a;
-    padding: 8px 16px;
-    border: none;
-    border-radius: 4px;
-    font-size: 14px;
-    font-weight: 500;
-    text-transform: uppercase;
-    transition: background-color 0.3s;
+}
+
+.login-button:hover {
+    background-color: #3f3f46;
+}
+
+.signup-button:hover {
+    background-color: #ffffff;
 }
 
 .premium-button:hover {
     background-color: #478fca;
 }
 
+.userButton {
+    margin-left: 10px;
+    display: flex;
+    align-items: center;
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+    .hamburger {
+        display: flex;
+        margin-left: auto;
+    }
+
+    .right-group {
+        flex-grow: 0; 
+        z-index: 1001;
+    }
+
+    #burger-user {
+        margin-right: 25px; 
+    }
+
+    .right {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 100%;
+        background-color: #252528;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 0;
+        overflow: hidden;
+        transition: height 0.3s ease;
+        z-index: 1000;
+    }
+
+    .right.open {
+        height: calc(100vh);
+    }
+
+    .right a,
+    .login-button,
+    .signup-button,
+    .premium-button {
+        font-size: 18px;
+        padding: 12px;
+        text-align: center;
+        margin: 10px 0;
+    }
+}
+
+.userButton-group {
+    display: flex;
+    align-items: center;
+}
+
+.notification-bell {
+    position: relative;
+    margin-right: 10px;
+    font-size: 1.5rem;
+    color: #f0f0f0;
+    cursor: pointer;
+    display: flex; /* Use flexbox */
+    align-items: center; /* Vertically center the icon */
+}
+
+.notification-bell .has-notification {
+    color: #ff4136;
+    animation: glow 1.5s infinite alternate;
+}
+
+@keyframes glow {
+    from {
+        text-shadow: 0 0 5px #ff4136, 0 0 10px #ff4136;
+    }
+    to {
+        text-shadow: 0 0 10px #ff4136, 0 0 20px #ff4136;
+    }
+}
+
+.notification-bell .tooltip {
+    visibility: hidden;
+    margin-right: 5px;
+    width: 130px;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 10px;
+    position: absolute;
+    z-index: 1;
+    top: 150%;
+    left: 50%;
+    margin-left: -65px;
+    opacity: 0;
+    transition: opacity 0.3s;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    font-size: 0.9rem;
+}
+
+.notification-bell .tooltip::after {
+    content: "";
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent #333 transparent;
+}
+
+.notification-bell:hover .tooltip {
+    visibility: visible;
+    opacity: 1;
+}
+
+@media (max-width: 768px) {
+    .notification-bell .tooltip {
+        width: 130px;
+        margin-left: -65px;
+    }
+}

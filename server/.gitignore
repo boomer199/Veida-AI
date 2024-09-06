@@ -1,5 +1,11 @@
 venv
 .env
 
+*.pyc
+
+mongo.ipynb
+
 __pycache__/
 *.pyc
+
+helpers/__pycache__/*.pyc

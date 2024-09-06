@@ -1,7 +1,5 @@
 import { clerkMiddleware } from '@clerk/nextjs/server';
 
-console.log("Middleware is being executed");
-
 export default clerkMiddleware();
 
 export const config = {

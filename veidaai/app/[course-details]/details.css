@@ -1,0 +1,39 @@
+.course-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  text-align: center;
+  font-family: 'Poppins', sans-serif !important;
+  background-color: #1e1e1e;
+}
+
+.course-title {
+  font-size: 2.5rem;
+  text-align: center;
+  margin: 1em;
+  color: #FFF;
+}
+
+.course-subtitle {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: #EEE;
+}
+
+.course-message {
+  font-size: 1.2rem;
+  text-align: center;
+  margin-bottom: 1rem;
+  color: #d1d5db;
+  font-style: normal;
+}
+
+.course-back-arrow-link {
+  position: absolute;
+  left: 1rem;
+  top: 80px;
+  color: #6d9dc5;
+  font-size: 2.6rem;
+}

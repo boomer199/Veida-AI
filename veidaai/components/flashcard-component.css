@@ -1,76 +1,93 @@
-.card-container {
-    width: 280px;
-    height: 300px;
-    padding: 1rem;
-    
-    cursor: pointer;
-
-    border-radius: 6px;
-    border: 1px solid gray;
+#card-front, #card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center items horizontally */
+    justify-content: center; /* Center content vertically */
+    padding: 1.5rem;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    background: linear-gradient(135deg, #6d9dc5, #3c6e9e);
+    color: white;
+    font-weight: normal; /* Remove bold text */
+    text-align: center;
+    overflow: auto; /* Allow scrolling if content overflows */
 }
 
-@media only screen and (max-width: 781px) {
-    .card-container {
-        width: 40vw;
-        height: auto;
-        min-height: 200px;
-        font-size: 0.9rem;
-        padding: 0.7rem 0.5rem;
+#card-back {
+    transform: rotateY(180deg);
+    background: linear-gradient(135deg, #3c6e9e, #6d9dc5);
+}
+
+#card-container.flipped {
+    transform: rotateY(180deg);
+}
+
+#card-container {
+    width: 320px;
+    height: 320px;
+    perspective: 1000px;
+    cursor: pointer;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+}
+
+#card-container.card-large {
+    width: 700px;
+    height: 400px;
+}
+
+#card-front p, #card-back p {
+    line-height: 1.4;
+    margin: 0;
+    overflow-wrap: break-word; /* Ensure long words break appropriately */
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    max-height: 100%;
+    font-weight: normal; /* Ensure text is not bold */
+}
+
+/* Smaller screen adjustments */
+@media only screen and (max-width: 1200px) {
+
+    #card-container {
+        width: 320px;
+        height: 320px;
+        perspective: 1000px;
+        cursor: pointer;
+        transition: transform 0.6s;
+        transform-style: preserve-3d;
     }
 }
 
-.card-container:hover {
-    border: 1px solid white;
-    /* -webkit-transform: translate(3px, 3px);
-            transform: translate(3px, 3px); */
+@media only screen and (max-width: 781px) {
+    #card-container,
+    #card-container.card-large {
+        width: 100%;
+        height: 366px;
+        max-width: 366px;
+    }
 }
 
-/* #card-container p {
-    cursor: auto;
-} */
-
-/***************/
-/* flip effect */
-/***************/
-
-/* #card-container:hover {
-    transition: 0.8s ease;
-    -webkit-transform: rotateY(-180deg);
-            transform: rotateY(-180deg);
-} */
-
-.card-container {
-    -webkit-perspective: 150rem;
-            perspective: 150rem;
-    -moz-perspective: 150rem;
+@media only screen and (max-width: 407px) {
+    #card-container {
+        height: 90vw;
+    }
 }
 
-.card-side {
-    -webkit-transition: all 0.8s ease;
-            transition: all 0.8s ease;
-    /* -webkit-backface-visibility: hidden;
-            backface-visibility: hidden; */
+/* Additional rule to align content to the top if it overflows */
+#card-front, #card-back {
+    overflow-y: auto;
 }
 
-.card-front {
-    -webkit-backface-visibility: hidden;
-            backface-visibility: hidden;
+#card-front p:only-child, #card-back p:only-child {
+    margin-top: auto;
+    margin-bottom: auto;
 }
 
-.card-back {
-    position: absolute;
-    top: 1em;
-    -webkit-transform: rotateY(180deg);
-             transform: rotateY(180deg);
-    visibility: hidden;
+#card-front p, #card-back p {
+    margin: auto;
 }
-
-/* .card-container:hover > .card-front {
-    -webkit-transform: rotateY(-180deg);
-            transform: rotateY(-180deg);
-}
-
-.card-container:hover > .card-back {
-    -webkit-transform: rotateY(0deg);
-             transform: rotateY(0deg);
-} */

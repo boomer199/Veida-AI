@@ -1,13 +1,12 @@
 import os
-from .util import parse_mc_questions
+import json
+from typing import List
 import openai
 import datetime
-from .mongo import (
-    get_times_seen,
-    create_or_update_next_study_date
-)
+from pydantic import BaseModel
 from pymongo import MongoClient
-
+from .util import parse_mc_questions
+from .mongo import create_or_update_next_study_date, get_times_seen
 
 # MongoDB setup
 mongo_uri = os.getenv('MONGO_URI')
@@ -59,69 +58,6 @@ def generate_notes(extracted_text):
     except Exception as e:
         print(f"Error: {e}")
         return 'Error generating notes.'
-
-
-
-
-def generate_mc_questions(notes):
-    """
-    Generate multiple choice questions using OpenAI API.
-    !Currently only supports 1 question per call.
-    """
-    initial_content = """
-    You are an AI model designed to generate high-quality multiple-choice questions based on the principles of synthesis, reorganization, context, comparison, and application. Each question should be followed by four answer options and a correct answer, including an explanation. The questions should be conceptually similar to the following examples:
-
-    1. **Synthesis:** Combining different pieces of information to create a new understanding.
-        Example: How does combining Newton's Law of Gravity with gravitational acceleration help in understanding how objects fall on Earth?
-
-    2. **Reorganization:** Arranging information in a systematic way to aid understanding.
-        Example: Which of the following best represents a reorganized view of Newton's Law of Gravity?
-
-    3. **Context:** Applying a concept in various situations or scenarios.
-        Example: In which context would you apply the Law of Gravity differently than on Earth?
-
-    4. **Comparison:** Examining similarities and differences between concepts.
-        Example: How does Newton's Law of Gravity differ from Einstein's Theory of General Relativity?
-
-    5. **Application:** Using concepts or formulas to solve problems or perform calculations.
-        Example: How would you calculate the gravitational force between the Earth and the Moon using Newton's Law of Gravity?
-
-    Please generate a multiple-choice question based on the provided concept and principles and follow the JSON format below.
-    {
-        "concept": "Concept Name",
-        "question_type": "Synthesis/Comparison/Context/Etc.",
-        "question": "Your question here?",
-        "possible_answers": [
-            "Option A",
-            "Option B",
-            "Option C",
-            "Option D"
-        ],
-        "correct_answer": "Correct Option",
-        "why": "Explanation of why this answer is correct."
-    }
-
-    Please make sure to follow this structure exactly for each question generated.
-    """
-    multiple_choice_questions = openai_client.chat.completions.create(
-        model="gpt-4o-mini",
-        messages=[
-            {"role": "system", "content": initial_content},
-            {"role": "user", "content": notes}
-        ]
-    )
-    json_mc_questions = parse_mc_questions(multiple_choice_questions)
-
-    return json_mc_questions
-
-
-
-
-
-
-
-
-
 
 
 
@@ -182,6 +118,164 @@ def generate_flashcards(notes):
     except Exception as e:
         print(f"Error: {e}")
         return []
+
+
+def generate_mc_questions(notes):
+    """
+    Generate multiple-choice questions using OpenAI API.
+
+    This function generates multiple-choice questions from the provided text.
+    
+    Args:
+        notes (str): The summarized notes extracted from the lecture.
+
+    Returns:
+        list: Generated multiple-choice questions.
+    """
+
+
+        
+    class Question(BaseModel):
+
+        concept: str
+        question_type: str
+        question: str
+        possible_answers: List[str]
+        correct_answer: str
+        why: str
+
+    class List_of_questions(BaseModel):
+        generated_questions: List[Question]
+
+    initial_content = """
+            You are an AI model designed to generate high-quality multiple-choice questions based on the principles of synthesis, reorganization, context, comparison, and application. 
+
+            For business, science, technology, engineering, and math notes, focus on equations and calculations if there are. For ALL formulas or expressions, you must **strictly format them in LaTeX** and enclose the entire formula in `$...$` for inline expressions or `$$...$$` for block-level expressions. Strictly format such questions, possible answers, and explanations in LaTeX.
+
+            1. **Synthesis:** Combining different pieces of information to create a new understanding.
+                Example: How does combining Newton's Law of Gravity with gravitational acceleration help in understanding how objects fall on Earth?
+
+            2. **Reorganization:** Arranging information in a systematic way to aid understanding.
+                Example: Which of the following best represents a reorganized view of Newton's Law of Gravity?
+
+            3. **Context:** Applying a concept in various situations or scenarios.
+                Example: In which context would you apply the Law of Gravity differently than on Earth?
+
+            4. **Comparison:** Examining similarities and differences between concepts.
+                Example: How does Newton's Law of Gravity differ from Einstein's Theory of General Relativity?
+
+            5. **Application:** Using concepts or formulas to solve problems or perform calculations.
+                Example: How would you calculate the gravitational force between the Earth and the Moon using Newton's Law of Gravity?
+
+            Please generate exactly 7 multiple-choice questions based on the provided concept and principles.
+                        
+            Each question should be followed by EXACTLY 4 answer options (do not include an answer letter), a correct answer choice. 
+            
+            For each answer choice, the "why" must be an in-depth and concise explanation of both the right and wrong answer choices.
+
+            For the correct answer field, you are to copy the exact text from the correct "possible_answers" option to "correct_answer".
+            
+            Each question must strictly follow the JSON format below:
+
+            "concept": "Set Theory",
+            "question_type": "Synthesis/Comparison/Context/Etc.",
+            "question": "How does the concept of a subset differ from the concept of a power set in set theory?",
+            "possible_answers": [
+                "Option A",
+                "Option B",
+                "Option C",
+                "Option D"
+            ],
+            "correct_answer": "Option A",
+            "why": "Option A is correct because a subset refers to any set whose elements are all contained within another set, while a power set refers to the collection of all possible subsets of a given set, including the empty set and the set itself. Option B is incorrect because it might confuse the subset with the elements that are not necessarily part of the set. Option C is wrong because it might imply that a power set excludes the empty set or the set itself, which is not the case. Option D is incorrect because it could suggest that subsets are not part of the power set, which contradicts the definition of a power set."
+        },
+    
+    """
+
+
+    try:
+        response = openai_client.beta.chat.completions.parse(
+            model="gpt-4o-mini",
+            messages=[
+                {"role": "system", "content": initial_content},
+                {"role": "user", "content": notes}
+            ],
+            response_format=List_of_questions,  
+        )
+    # Extract the relevant part of the response
+        output = response.choices[0].message.parsed
+        output_json = output.json()
+        output_dict = json.loads(output_json)
+        
+        return output_dict['generated_questions']
+
+    except Exception as e:
+        print(f"Error: {e}")
+        return []
+
+
+
+
+def generate_flashcards(notes):
+    """
+    Generate flashcards using OpenAI API.
+
+    This function generates flashcards from the provided text.
+    
+    Args:
+        notes (str): The summarized notes extracted from the lecture.
+
+    Returns:
+        list: Generated flashcards.
+    """
+    try:
+        response = openai_client.chat.completions.create(
+            model="gpt-4o-mini",
+            messages=[
+                {
+                    "role": "system",
+                    "content": ('''
+                        You are an AI model designed to transform the provided notes into high-quality flashcards that cover all key concepts, topics, and terms.
+                        Ensure that each question can be answered using **only** the information contained within the provided text.
+                        Avoid generating questions that require any outside knowledge or inference.
+                        Keep questions and answers clear, concise, and directly related to the provided material.
+                                
+                        Create one flashcard for each key idea, focusing on definitions, explanations, and concepts mentioned in the text.
+                        Always aim to maximize the number of flashcards in proportion to the depth and detail of the material.
+                        Prioritize completeness and ensure that the flashcards reflect the full scope of the content without introducing extraneous information.
+            
+                        Each flashcard must strictly follow the EXACT text format below:
+                                                    
+                        Flashcard 1:
+                        Front: What is Dollar-Cost Averaging (DCA)?
+                        Back: Investing a fixed amount on a regular schedule
+                    ''')
+                },
+                {
+                    "role": "user",
+                    "content": notes
+                }
+            ]
+        )
+        flashcards_text = response.choices[0].message.content
+
+        # Parse the flashcards from the response
+        flashcards = []
+        for flashcard in flashcards_text.split("Flashcard")[1:]:
+            if "Front:" in flashcard and "Back:" in flashcard:
+                parts = flashcard.split("Front:")[1].split("Back:")
+                front = parts[0].strip()
+                back = parts[1].strip()
+                flashcards.append({"front": front, "back": back})
+            else:
+                print("Error: Flashcard format is incorrect.")
+        
+    
+    except Exception as e:
+        print(f"Error: {e}")
+        return []
+        
+    return flashcards
 
 
 def calculate_dynamic_intervals(due_by):

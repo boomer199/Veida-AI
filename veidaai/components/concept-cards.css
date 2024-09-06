@@ -1,0 +1,359 @@
+.client-page {
+    padding: 5%;
+    background-color: #1e1e1e;
+    min-height: 100vh;
+    color: #f0f0f0;
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  h1 {
+    text-align: center;
+    margin-bottom: 2rem;
+    margin-top: 4rem;
+    font-size: 2.5rem;
+    color: #f0f0f0;
+  }
+  
+  .concept-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .concept-card {
+    background-color: #27272a;
+    border-radius: 25px;
+    padding: 1.5rem 2rem;
+    text-decoration: none;
+    color: #f0f0f0;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .concept-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    background-color: #3f3f46;
+  }
+  
+  .delete-concept-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+  }
+  .new-concept {
+    background-color: #6d9dc5;
+    color: #1e1e1e;
+  }
+  
+  .new-concept:hover {
+    background-color: #478fca;
+  }
+  
+  .new-concept h2 {
+    margin: 0;
+    font-size: 1.4rem;
+    text-align: center;
+    width: 100%;
+  }
+  
+  .concept-link {
+    text-decoration: none;
+    color: inherit;
+    flex-grow: 1;
+    text-align: left;
+  }
+  
+  .concept-link h2 {
+    margin: 0;
+    font-size: 1.4rem;
+  }
+  
+  .create-concept-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    animation: fadeIn 0.3s ease-out;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  
+  .create-concept-form {
+    background-color: #2d3748;
+    padding: 2.5rem;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 500px;
+    position: relative;
+    color: #f0f0f0;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    animation: slideUp 0.3s ease-out;
+    font-family: 'Poppins', sans-serif;
+    max-height: 90vh;
+    overflow-y: auto; 
+  }
+  
+  @keyframes slideUp {
+    from { transform: translateY(50px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+  
+  .create-concept-form h2 {
+    margin-bottom: 1.5rem;
+    color: #ffffff;  /* Changed from #6d9dc5 to white */
+    font-size: 1.8rem;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 600;  /* Added for better visibility */
+  }
+  
+  .create-concept-form input,
+  .create-concept-form textarea {
+    width: 100%;
+    padding: 0.8rem;
+    margin-bottom: 1.2rem;
+    border: none;
+    border-radius: 6px;
+    background-color: #3a4556;
+    color: #f0f0f0;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  .create-concept-form input:focus,
+  .create-concept-form textarea:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px #6d9dc5;
+  }
+  
+  .create-concept-form textarea {
+    height: 100px;
+    resize: none;
+  }
+  
+  .create-concept-form .error {
+    color: #fc8181;
+    margin: 0.6rem 0 1rem 0;
+    font-size: 0.9rem;
+    text-align: center;
+  }
+  
+  .create-concept-form label  {
+    padding-left: 0.1ch;
+    color: #bbb;
+  }
+  
+  .create-concept-form #concept-description-input {
+    margin-bottom: 0.5rem;
+  }
+  
+  .create-concept-form #concept-name-input {
+    margin-bottom: 0.8rem;
+  }
+  
+  .loading-concepts {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 1.2rem;
+    color: #ffffff;
+  }
+  .delete-concept-button,
+  .edit-concept-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: gray;
+    font-size: 1.5rem;
+    margin-right: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .delete-concept-button {
+    right: 10px;
+  }
+  
+  .delete-concept-button:hover {
+    color: rgb(205, 62, 62);
+  }
+  
+  .edit-concept-button {
+    right: 45px; /* Adjust as needed to position next to the trashcan */
+    margin-right: 25px;
+  }
+  
+  .edit-concept-button:hover {
+    color: #6d9dc5;
+  }
+  .form-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1.5rem;
+  }
+  
+  .form-buttons button {
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  
+  .form-buttons button[type="submit"] {
+    background-color: #6d9dc5;
+    color: #1e1e1e;
+    flex-grow: 1;
+    margin-right: 10px;
+  }
+  
+  .form-buttons button[type="submit"]:hover {
+    background-color: #478fca;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .form-buttons button[type="button"] {
+    background-color: #4b5563;
+    color: #f0f0f0;
+    flex-grow: 1;
+  }
+  
+  .form-buttons button[type="button"]:hover {
+    background-color: #6b7280;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .form-buttons button:disabled,
+  .form-buttons button:disabled:hover {
+    background-color: #a9a9a9;
+    color: #555555;
+    cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
+  }
+  
+  .close-button {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    color: #f0f0f0;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .close-button:hover {
+    color: #6d9dc5;
+    transform: rotate(90deg);
+  }
+  
+  .file-input-wrapper {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+    width: 100%;
+  }
+  
+  .file-input-wrapper input[type=file] {
+    font-size: 100px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+    cursor: pointer;
+  }
+  
+  .concept-dashboard-description {
+    max-width: 700px;
+    font-size: 1.2rem;
+    color: #d1d5db;
+    margin: 0 auto 3rem auto;
+    text-align: center;
+  }  
+  
+  .file-input-wrapper .file-input-button {
+    background-color: #4b5563;
+    color: #f0f0f0;
+    padding: 0.8rem;
+    border-radius: 6px;
+    display: inline-block;
+    cursor: pointer;
+    text-align: center;
+    width: 100%;
+    transition: all 0.3s ease;
+  }
+  
+  .file-input-wrapper:hover .file-input-button {
+    background-color: #6b7280;
+  }
+  .loading-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+  }
+  
+  .loading-spinner {
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #3498db;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  @media (max-width: 781px) {
+    h1 {
+      font-size: 2rem;
+    }
+  
+    .create-concept-form {
+      padding: 2.5rem 1.5rem;
+    }
+  }
+  
+  @media only screen and (max-width: 500px) {
+    .form-buttons {
+      flex-direction: column;
+    }
+  
+    .form-buttons button[type="submit"] {
+      margin: 0 0 10px 0;
+    }
+  }

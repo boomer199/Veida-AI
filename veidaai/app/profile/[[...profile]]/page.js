@@ -1,11 +1,11 @@
 import React from "react";
 import { UserProfile } from "@clerk/nextjs";
-import { auth, currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import "./page.css";
+import { useAuth } from "@clerk/nextjs";
 
 export default async function Profile() {
-    const { userId } = auth();
+    const { userId } = useAuth();
     const isAuth = !!userId;
     
     if (!isAuth) {

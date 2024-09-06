@@ -1,0 +1,348 @@
+.concept-details-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: calc(100vh - 60px); /* Adjust for navbar height */
+  padding: 5%;
+  background-color: #1e1e1e;
+  color: #fff;
+  font-family: 'Poppins', sans-serif;
+}
+
+.concept-title {
+  font-size: 2.5rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  margin-top: 4rem;
+  text-align: center;
+  color: #fff;
+}
+
+.concept-exam-date {
+  margin: 10px 0;
+  max-width: 800px;
+  font-size: 1.2rem;
+  color: #d1d5db;
+  text-align: center;
+}
+
+.concept-description {
+  font-size: 1.2rem;
+  color: #d1d5db;
+  text-align: center;
+  max-width: 300px;
+  margin-bottom: 3rem;
+}
+
+.concept-content {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  width: 100%;
+  max-width: 1200px;
+  margin-bottom: 2rem;
+}
+
+.concept-study-container {
+  background-color: #27272a;
+  border-radius: 12px;
+  padding: 3rem;
+  width: calc(33.33% - 1rem);
+  height: 40%;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  text-decoration: none;
+  color: #f0f0f0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.concept-study-container:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  background-color: #3f3f46;
+}
+
+.concept-study-container h3 {
+  font-size: 2rem;
+  color: #6d9dc5;
+  margin: 0 auto 0.25rem auto;
+}
+
+.concept-study-container p {
+  font-size: 1.3rem;
+  padding-top: 1rem;
+  color: #d1d5db;
+  margin-bottom: 1rem;
+  max-height: 3.6em;
+  overflow: hidden;
+}
+
+.concept-study-icon {
+  font-size: 3.5rem;
+  margin-bottom: 0.5rem;
+  color: #6d9dc5;
+}
+
+.concept-add-content-btn {
+  width: 100%;
+  max-width: 1200px;
+  padding: 1rem;
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: #1f2937;
+  background-color: #6d9dc5;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  margin-bottom: 2rem;
+}
+
+.concept-add-content-btn h2 {
+  margin: 0;
+  font-size: 1.4rem;
+  text-align: center;
+  width: 100%;
+}
+
+
+.concept-add-content-btn:hover {
+  background-color: #478fca;
+  transform: translateY(-2px);
+}
+
+@media (max-width: 1200px) {
+  .concept-title {
+    width: 100%;
+  }
+  
+  #concept-page {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+  }
+
+  .concept-content {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .concept-study-container {
+    width: 100%;
+    max-width: 600px;
+  }
+
+  .concept-add-content-btn {
+    max-width: 600px;
+  }
+}
+
+/* New styles for AddContent */
+.concept-create-concept-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.concept-create-concept-form {
+  background-color: #2d3748;
+  padding: 2.5rem;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 500px;
+  position: relative;
+  color: #f0f0f0;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+  animation: slideUp 0.3s ease-out;
+  max-height: 90vh;
+  overflow-y: auto; 
+}
+
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.concept-create-concept-form h2 {
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  font-size: 1.8rem;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: 600;  /* Added for better visibility */
+}
+
+.concept-create-concept-form label  {
+  padding-left: 0.1ch;
+  color: #bbb;
+}
+
+.concept-create-concept-form #concept-description-input {
+  margin-bottom: 0.5rem;
+}
+
+.concept-create-concept-form #concept-name-input {
+  margin-bottom: 0.8rem;
+}
+
+.concept-file-input-wrapper {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+  width: 100%;
+  margin-bottom: 0.5rem;
+}
+
+.concept-file-input-wrapper input[type=file] {
+  font-size: 100px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.concept-file-input-wrapper .file-input-button {
+  background-color: #3a4556;
+  color: #f0f0f0;
+  padding: 0.8rem;
+  border-radius: 6px;
+  display: inline-block;
+  cursor: pointer;
+  text-align: center;
+  width: 100%;
+  transition: all 0.3s ease;
+}
+
+.concept-file-input-wrapper:hover .file-input-button {
+  background-color: #4a5568;
+}
+
+.concept-create-concept-form .form-description {
+  margin-bottom: 3rem;
+  color: #d1d5db;
+  text-align: center;
+}
+
+.concept-create-concept-form .error {
+  color: #fc8181;
+  margin: 0.6rem 0 1rem 0;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.concept-form-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1.5rem;
+}
+
+.concept-form-buttons button {
+  padding: 0.8rem 1.5rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.concept-form-buttons button[type="submit"] {
+  background-color: #6d9dc5;
+  color: #1e1e1e;
+  flex-grow: 1;
+  margin-right: 10px;
+}
+
+.concept-form-buttons button[type="submit"]:hover {
+  background-color: #478fca;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.concept-form-buttons button[type="button"] {
+  background-color: #4b5563;
+  color: #f0f0f0;
+  flex-grow: 1;
+}
+
+.concept-form-buttons button[type="button"]:hover {
+  background-color: #6b7280;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.concept-form-buttons button:disabled,
+.concept-form-buttons button:disabled:hover {
+  background-color: #a9a9a9;
+  color: #555555;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+
+.concept-close-button {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: none;
+  border: none;
+  color: #f0f0f0;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.concept-close-button:hover {
+  color: #6d9dc5;
+  transform: rotate(90deg);
+}
+
+@media only screen and (max-width: 781px) {
+  .concept-title {
+    font-size: 2rem;
+  }
+
+  .concept-create-concept-form {
+    padding: 2.5rem 1.5rem;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .concept-form-buttons {
+    flex-direction: column;
+  }
+
+  .concept-form-buttons button[type="submit"] {
+    margin: 0 0 10px 0;
+  }
+}
+
+.back-arrow-link {
+  position: absolute;
+  left: 1rem;
+  top: 80px;
+  color: #6d9dc5;
+  font-size: 2.6rem;
+}

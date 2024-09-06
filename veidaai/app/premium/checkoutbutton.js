@@ -1,4 +1,4 @@
-"use client"; // This is a client component
+"use client";
 
 import React from "react";
 import "./premium.css";

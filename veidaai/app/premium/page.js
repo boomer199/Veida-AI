@@ -1,19 +1,43 @@
-import { auth } from "@clerk/nextjs/server";
-import { redirect } from 'next/navigation';
+"use client";
+
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { useAuth } from '@clerk/nextjs';
 import CheckoutButton from './checkoutbutton';
 import CancelButton from './cancelbutton';
 import './premium.css';
 
-const PremiumPage = async () => {
-  const { userId } = auth();
+const PremiumPage = () => {
+  const { userId, isLoaded, isSignedIn } = useAuth();
+  const router = useRouter();
+  const [isPremium, setIsPremium] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
-  if (!userId) {
-    redirect('/sign-in');
+  useEffect(() => {
+    if (isLoaded && !isSignedIn) {
+      router.push('/sign-in');
+    } else if (userId) {
+      fetchPremiumStatus();
+    }
+  }, [isLoaded, isSignedIn, userId, router]);
+
+  const fetchPremiumStatus = async () => {
+    try {
+        const response = await fetch(`http://localhost:8080/api/check_premium_status?clerk_id=${userId}`);
+        if (response.ok) {
+            const data = await response.json();
+            setIsPremium(data.premium);
+        }
+    } catch (error) {
+        console.error('Error fetching premium status:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  if (isLoading) {
+    return <div>Loading...</div>;
   }
-
-  const res = await fetch(`http://localhost:8080/api/check_premium_status?clerk_id=${userId}`);
-  const data = await res.json();
-  const isPremium = data.premium;
 
   if (isPremium) {
     return (
@@ -29,7 +53,7 @@ const PremiumPage = async () => {
     return (
       <div className="premium-page">
         <h1 className="premium-title">Premium Access</h1>
-        <p className="premium-description">Subscribe for $10/month for premium features.</p>
+        <p className="premium-description">Unlock the full potential of Veida AI with our premium subscription. Enjoy unlimited courses, unlimited multiple choice questions, advanced AI features, and priority support.</p>
         <CheckoutButton clerkId={userId} />
       </div>
     );
