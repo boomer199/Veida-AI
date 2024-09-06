@@ -10,14 +10,27 @@ import { FaRegLightbulb, FaRegStickyNote, FaRegQuestionCircle, FaArrowLeft } fro
 export default function Home() {
   const router = useRouter();
   const [previewedFeatureId, setPreviewedFeatureId] = useState('flashcardPreview');
+  
+  const mobileBreakPoint = 781;
   const [isMobile, setIsMobile] = useState(false);
   const [slide, setSlide] = useState({num: null, ref: null});
   const mobileGalleryRef = useRef(null);
   const mobileFlashcardSlideRef = useRef(null);
   const mobileMcqSlideRef = useRef(null);
   const mobileNotesSlideRef = useRef(null);
+  
+  // call this fx() when window is resized to reevaluate isMobile against mobileBreakPoint
+  function reportWindowSize() {
+    setIsMobile( window.innerWidth <= mobileBreakPoint );
+    console.log( window.innerWidth );
+  }
 
-  useEffect(()=>setSlide({num: 1, ref: mobileFlashcardSlideRef}), []);
+  window.onresize = reportWindowSize;
+
+  useEffect( () => {
+    setSlide({ num: 1, ref: mobileFlashcardSlideRef });
+    reportWindowSize();
+  }, []);
 
   function galleryButtonOnClick(direction) {
     let newSlideNum;
