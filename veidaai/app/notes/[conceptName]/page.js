@@ -7,6 +7,10 @@ import ReactMarkdown from 'react-markdown';
 import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
 import { useParams,useSearchParams } from 'next/navigation';
+<<<<<<< HEAD
+=======
+import { unformatURL } from '@/app/helpers';
+>>>>>>> 16a43b5 (New db structure implemented)
 import { FaArrowLeft } from 'react-icons/fa';
 import { jsPDF } from "jspdf";
 import 'katex/dist/katex.min.css';
@@ -50,7 +54,11 @@ const NotesPage = () => {
         const courseObj = data.courses[courseIndex];
         const conceptIndex = courseObj.concepts.findIndex(concept => decodedConceptName.localeCompare(concept.concept_name) === 0);
         const conceptObj = courseObj.concepts[conceptIndex];
+<<<<<<< HEAD
         setNotes(conceptObj.concept_notes);
+=======
+        setNotes(conceptObj.notes);
+>>>>>>> 16a43b5 (New db structure implemented)
       } else {
         setError('Failed to fetch notes');
       }
@@ -129,7 +137,11 @@ const NotesPage = () => {
     <div className="main-inline">
       <div className="notes-container">
         <Link href={`/concept-details/${urlConceptName}?courseName=${courseName}`} title={`back to ${courseName}`} className="back-arrow-link"><FaArrowLeft /></Link>
+<<<<<<< HEAD
         <h1 className="title">Your Notes for {decodedConceptName}</h1>
+=======
+        <h1 className="title">Your Notes for {courseName}</h1>
+>>>>>>> 16a43b5 (New db structure implemented)
         {error && <p style={{ color: 'red' }}>{error}</p>}
         <div id="notes-content" style={{ backgroundColor: '#1e1e1e', color: 'white' }}>
           {parsedNotes ? (

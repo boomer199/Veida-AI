@@ -109,6 +109,7 @@ const CourseDetails = ({ courseName }) => {
 
         {courseConcepts.length > 0 ? (
           courseConcepts.map((concept, index) => (
+<<<<<<< HEAD
             <div key={index} className="course-card">
               <Link href={`/concept-details/${concept.concept_name.replace(/\s+/g, '-')}?courseName=${courseName}`} className="course-link">
                 <h2>{concept.concept_name}</h2>
@@ -125,6 +126,16 @@ const CourseDetails = ({ courseName }) => {
               >
                 <i className="fas fa-trash-alt"></i>
               </button>
+=======
+            <div key={index} className="course-concept">
+
+          <Link href={`/concept-details/${concept.concept_name.replace(/\s+/g, '-')}?courseName=${courseName}`}>
+            <h3>{concept.concept_name}</h3>
+          </Link>
+
+
+              <p>{concept.concept_description}</p>
+>>>>>>> 16a43b5 (New db structure implemented)
             </div>
           ))
         ) : (

@@ -126,6 +126,7 @@ const ConceptDetailsPage = () => {
           <h2>Add Content</h2>
         </button>
 
+<<<<<<< HEAD
         <div className="concept-content">
           <Link href={`/flashcards/${formatURL(conceptName)}?courseName=${courseName}`} className="concept-study-container">
             <div>
@@ -148,6 +149,35 @@ const ConceptDetailsPage = () => {
             </div>
             <p>Test your knowledge with multiple choice questions</p>
           </Link>
+=======
+          <h2 className="concept-title">Course Name: {courseName}</h2>
+      <h3 className="concept-title">{conceptName}</h3>
+      
+          
+          <div className="concept-content">
+            <Link href={`/flashcards/${formatURL(conceptName)}?courseName=${courseName}`} className="concept-study-container">
+              <div>
+                <FaRegLightbulb className="concept-study-icon" />
+                <h3>Flashcards</h3>
+              </div>
+              <p>Study with interactive flashcards to reinforce key concepts</p>
+            </Link>
+            <Link href={`/notes/${formatURL(conceptName)}?courseName=${courseName}`} className="concept-study-container">
+              <div>
+                <FaRegStickyNote className="concept-study-icon" />
+                <h3>Notes</h3>
+              </div>
+              <p>Review and organize your course notes efficiently</p>
+            </Link>
+            <Link href={`/mcqs/${formatURL(conceptName)}?courseName=${courseName}`} className="concept-study-container">
+              <div>
+                <FaRegQuestionCircle className="concept-study-icon" />
+                <h3>MCQs</h3>
+              </div>
+              <p>Test your knowledge with multiple choice questions</p>
+            </Link>
+          </div>
+>>>>>>> 16a43b5 (New db structure implemented)
         </div>
 
         {showAddContent && (

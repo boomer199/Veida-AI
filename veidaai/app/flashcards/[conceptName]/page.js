@@ -5,10 +5,17 @@ import Link from 'next/link';
 import { useAuth } from "@clerk/nextjs";
 import { useParams,useSearchParams } from 'next/navigation';
 import FlashCard from '@/components/FlashCard';
+<<<<<<< HEAD
 import { FaArrowLeft } from 'react-icons/fa';
 import { useNotification } from '../../../context/NotificationContext';
 import './flashcards-page.css';
 import { unformatURL } from '@/app/helpers';
+=======
+import { unformatURL } from '@/app/helpers';
+import { FaArrowLeft } from 'react-icons/fa';
+import { useNotification } from '../../../context/NotificationContext';
+import './flashcards-page.css';
+>>>>>>> 16a43b5 (New db structure implemented)
 
 function FlashcardPage() {
     const [flashcards, setFlashcards] = useState([]);
@@ -27,6 +34,7 @@ function FlashcardPage() {
     const [flashcardsDueToday, setFlashcardsDueToday] = useState(false);
     const { setHasNotification, setFlashcardsDue } = useNotification();
     const { userId } = useAuth();
+<<<<<<< HEAD
     const [isPremium, setIsPremium] = useState(false);
     
 
@@ -38,6 +46,29 @@ function FlashcardPage() {
 
 
 
+=======
+    const flashcardRef = useRef();
+    
+
+
+
+    function unformatConceptName(urlConceptName) {
+        let decoded = decodeURIComponent(urlConceptName);
+        let unhyphenated = decoded.replace(/-/g, ' ');
+        return unhyphenated.trim();
+      }
+    const params = useParams();
+    const courseName = useSearchParams().get('courseName');
+    const urlConceptName = params.conceptName;
+    const decodedConceptName = unformatConceptName(urlConceptName);
+
+
+
+    const sanitizeFlashcardContent = (text) => {
+        return text.replace(/\*\*/g, '');
+    };
+
+>>>>>>> 16a43b5 (New db structure implemented)
     const fetchFlashcardsDueToday = async () => {
         try {
             const response = await fetch(`http://localhost:8080/api/get_flashcards_today?clerk_id=${userId}&course_name=${courseName}`, {
@@ -49,6 +80,7 @@ function FlashcardPage() {
 
             if (response.ok) {
                 const data = await response.json();
+<<<<<<< HEAD
                 setFlashcards(data.flashcards);
                 setCurrentCard({ card: data.flashcards[0] || null, index: 0 });
                 setReviewing(true);
@@ -58,6 +90,28 @@ function FlashcardPage() {
 
                 if (!hasDueFlashcards) {
                     setReviewing(false);
+=======
+
+                if (data.flashcards && data.flashcards.length > 0) {
+                    const sanitizedFlashcards = data.flashcards.map(card => ({
+                        ...card,
+                        front: sanitizeFlashcardContent(card.front),
+                        back: sanitizeFlashcardContent(card.back),
+                    }));
+
+                    setFlashcards(sanitizedFlashcards);
+                    setCurrentCard({ card: sanitizedFlashcards[0] || null, index: 0 });
+                    setReviewing(true);
+                    setStudyingToday(true);
+                    setFlashcardsDueToday(true);
+                    setFlashcardsDue(sanitizedFlashcards.length);
+                    setHasNotification(true);
+                } else {
+                    setFlashcards([]);  // Reset flashcards if none are due today
+                    setFlashcardsDueToday(false);
+                    setFlashcardsDue(0);
+                    setHasNotification(false);
+>>>>>>> 16a43b5 (New db structure implemented)
                 }
             } else {
                 setError('Failed to fetch flashcards due today');
@@ -84,6 +138,11 @@ function FlashcardPage() {
                 });
                 if (!response.ok) {
                     console.error('Failed to remove today\'s review dates');
+<<<<<<< HEAD
+=======
+                } else {
+                    console.log('Successfully removed today\'s review dates');
+>>>>>>> 16a43b5 (New db structure implemented)
                 }
             } catch (error) {
                 console.error('Error removing today\'s review dates:', error);
@@ -92,13 +151,20 @@ function FlashcardPage() {
         setReviewing(false);
         setStudyingToday(false);
         fetchFlashcards();
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> 16a43b5 (New db structure implemented)
         setHasNotification(false);
         setFlashcardsDue(0);
     };
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 16a43b5 (New db structure implemented)
     const handleNextCard = useCallback(() => {
         let newIndex = (currentCard.index + 1) % flashcards.length;
         setCurrentCard({ card: flashcards[newIndex], index: newIndex });
@@ -144,8 +210,24 @@ function FlashcardPage() {
 
             if (response.ok) {
                 const data = await response.json();
+<<<<<<< HEAD
                 setFlashcards(data.flashcards);
                 setCurrentCard({ card: data.flashcards[0] || null, index: 0 });
+=======
+
+                if (data.flashcards && data.flashcards.length > 0) {
+                    const sanitizedFlashcards = data.flashcards.map(card => ({
+                        ...card,
+                        front: sanitizeFlashcardContent(card.front),
+                        back: sanitizeFlashcardContent(card.back),
+                    }));
+
+                    setFlashcards(sanitizedFlashcards);
+                    setCurrentCard({ card: sanitizedFlashcards[0] || null, index: 0 });
+                } else {
+                    setFlashcards([]);  // Reset flashcards if none are found
+                }
+>>>>>>> 16a43b5 (New db structure implemented)
             } else {
                 setError('Failed to fetch flashcards');
             }
@@ -217,6 +299,7 @@ function FlashcardPage() {
     }, [flashcards, currentCard]);
 
     useEffect(() => {
+<<<<<<< HEAD
         const fetchPremiumStatus = async () => {
             try {
                 const response = await fetch(`http://localhost:8080/api/check_premium_status?clerk_id=${userId}`);
@@ -238,6 +321,20 @@ function FlashcardPage() {
         }
     }, [userId]);
 
+=======
+<<<<<<<< HEAD:veidaai/app/flashcards/[course-name]/page.js
+        if (userId) {
+            fetchFlashcards();
+        }
+    }, [userId]);
+========
+      if (userId) {
+        
+          fetchFlashcards();
+      }
+  }, [userId]);
+>>>>>>>> 16a43b5 (New db structure implemented):veidaai/app/flashcards/[conceptName]/page.js
+>>>>>>> 16a43b5 (New db structure implemented)
 
     return (
         <div className="flashcard-page">
@@ -251,6 +348,7 @@ function FlashcardPage() {
                 </Link>
             )}
             <h1 className="flashcard-title">
+<<<<<<< HEAD
                 {reviewing ? `${courseName} Flashcard Review` : `Your Flashcards for ${decodedConceptName}`}
             </h1>
             {error && <p style={{ color: 'red' }}>{error}</p>}
@@ -309,9 +407,71 @@ function FlashcardPage() {
                         <p>No flashcards available.</p>
                     )}
                 </div>
+=======
+                {reviewing ? `${courseName} Flashcard Review` : `Your Flashcards for ${courseName}`}
+            </h1>
+            {error && <p style={{ color: 'red' }}>{error}</p>}
+
+            {flashcards.length > 0 ? (
+                reviewing ? (
+                    <div id="review-container">
+                        <div className="review-flashcard">
+                            <FlashCard
+                                ref={flashcardRef}
+                                card={currentCard.card}
+                                size="large"
+                                frontStyle={currentCard.index === frontReviewIndex ? { fontSize: frontReviewSize } : {}}
+                                backStyle={currentCard.index === backReviewIndex ? { fontSize: backReviewSize } : {}}
+                            />
+                        </div>
+                        <div className="review-buttons">
+                            <button className="review-button" onClick={handleEndSession}>
+                                End Review
+                            </button>
+                            <button className="review-button" onClick={handlePrevCard}>
+                                Previous Card
+                            </button>
+                            <button className="review-button" onClick={handleNextCard}>
+                                Next Card
+                            </button>
+                        </div>
+                        <p className="card-counter">{`Card ${currentCard.index + 1}/${flashcards.length}`}</p>
+                    </div>
+                ) : (
+                    <div id="cards-available">
+                        <div className="button-container">
+                            <button className="start-review-button" onClick={() => { setReviewing(true); setCurrentCard({ card: flashcards[0], index: 0 }); }}>
+                                Review all Flashcards
+                            </button>
+                            <button
+                                className="start-review-button"
+                                onClick={fetchFlashcardsDueToday}
+                            >
+                                Study Today's Flashcards
+                            </button>
+                        </div>
+                        <div id="cards-preview">
+                            {flashcards.map((card, index) => (
+                                <FlashCard
+                                    key={index}
+                                    card={card}
+                                    frontStyle={index === frontIndex ? { fontSize: frontSize } : {}}
+                                    backStyle={index === backIndex ? { fontSize: backSize } : {}}
+                                />
+                            ))}
+                        </div>
+                    </div>
+                )
+            ) : (
+                <p>No flashcards available.</p>
+>>>>>>> 16a43b5 (New db structure implemented)
             )}
         </div>
     );
 }
 
+<<<<<<< HEAD
 export default FlashcardPage;
+=======
+export default FlashcardPage;
+>>>>>>> 16a43b5 (New db structure implemented)

@@ -4,11 +4,18 @@ import React, { useEffect, useState } from "react";
 import Link from 'next/link';
 import { useAuth } from "@clerk/nextjs";
 import { useParams, useRouter, useSearchParams } from 'next/navigation';
+<<<<<<< HEAD
+=======
+import { unformatURL } from '@/app/helpers';
+>>>>>>> 16a43b5 (New db structure implemented)
 import { FaArrowLeft } from 'react-icons/fa';
 import './mcqs-page.css';
 import katex from 'katex';
 import 'katex/dist/katex.min.css';
+<<<<<<< HEAD
 import { unformatURL } from '@/app/helpers';
+=======
+>>>>>>> 16a43b5 (New db structure implemented)
 
 function McqsPage() {
     const { userId } = useAuth();
@@ -17,6 +24,7 @@ function McqsPage() {
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [selectedAnswer, setSelectedAnswer] = useState(null);
     const [submitted, setSubmitted] = useState(false);
+<<<<<<< HEAD
     const [isPremium, setIsPremium] = useState(false); // Initialize isPremium state
     const router = useRouter();
 
@@ -24,6 +32,21 @@ function McqsPage() {
     const courseName = useSearchParams().get('courseName');
     const urlConceptName = params.conceptName;
     const decodedConceptName = unformatURL(urlConceptName);
+=======
+    const [isPremium, setIsPremium] = useState(false);
+    const router = useRouter();
+
+    function unformatConceptName(urlConceptName) {
+        let decoded = decodeURIComponent(urlConceptName);
+        let unhyphenated = decoded.replace(/-/g, ' ');
+        return unhyphenated.trim();
+      }
+    const params = useParams();
+    const courseName = useSearchParams().get('courseName');
+    const urlConceptName = params.conceptName;
+    const decodedConceptName = unformatConceptName(urlConceptName);
+    console.log(decodedConceptName);
+>>>>>>> 16a43b5 (New db structure implemented)
 
     const fetchMcqs = async () => {
         try {
@@ -50,11 +73,15 @@ function McqsPage() {
             const response = await fetch(`http://localhost:8080/api/check_premium_status?clerk_id=${userId}`);
             if (response.ok) {
                 const data = await response.json();
+<<<<<<< HEAD
                 console.log('Premium status response:', data); // Add this line
                 setIsPremium(data.premium);
                 console.log('isPremium set to:', data.premium); // Add this line
             } else {
                 console.error('Failed to fetch premium status:', response.statusText); // Add this line
+=======
+                setIsPremium(data.isPremium);
+>>>>>>> 16a43b5 (New db structure implemented)
             }
         } catch (error) {
             console.error('Error fetching premium status:', error);
@@ -63,7 +90,10 @@ function McqsPage() {
 
     useEffect(() => {
         if (userId) {
+<<<<<<< HEAD
             console.log('Fetching MCQs and premium status for user:', userId); // Add this line
+=======
+>>>>>>> 16a43b5 (New db structure implemented)
             fetchMcqs();
             fetchPremiumStatus();
         }
@@ -90,6 +120,7 @@ function McqsPage() {
     };
 
     const handleEndSession = () => {
+<<<<<<< HEAD
         console.log('isPremium:', isPremium); // Add this line
         if (!isPremium && currentQuestionIndex >= 2) { // 0-based index, so 2 is the 3rd question
             alert("You have reached your limit on the number of MCQs you can create/study. Upgrade to premium for unlimited access to creating MCQs!");
@@ -99,6 +130,14 @@ function McqsPage() {
     };
 
 
+=======
+        if (!isPremium && currentQuestionIndex >= 2) { // 0-based index, so 2 is the 3rd question
+            alert("You have reached your limit on the number of MCQs you can create/study. Upgrade to premium for unlimited access to creating MCQs!");
+        }
+        router.push(`/${urlCourseName}`);
+    };
+
+>>>>>>> 16a43b5 (New db structure implemented)
     const convertMath = (text) => {
         if (typeof text !== 'string') return '';
     
@@ -137,13 +176,20 @@ function McqsPage() {
     
 
     const currentQuestion = mcqs[currentQuestionIndex];
+<<<<<<< HEAD
     console.log(currentQuestion)
+=======
+>>>>>>> 16a43b5 (New db structure implemented)
     const isCorrect = currentQuestion && selectedAnswer !== null && selectedAnswer === currentQuestion.correct_answer_index;
 
     return (
         <div className="mcqs-container">
             <Link href={`/concept-details/${urlConceptName}?courseName=${courseName}`} title={`back to ${courseName}`} className="back-arrow-link"><FaArrowLeft/></Link>
+<<<<<<< HEAD
             <h1 className="mcqs-header">Your MCQs for {decodedConceptName}</h1>
+=======
+            <h1 className="mcqs-header">Your MCQs for {courseName}</h1>
+>>>>>>> 16a43b5 (New db structure implemented)
             {error && <p className="error-message">{error}</p>}
             <div className="question-container">
                 {mcqs.length > 0 ? (

@@ -481,21 +481,18 @@ def get_mcqs(clerk_id, course_name,concept_name):
         return []
 
     # Check if the user is premium
-    is_premium = user_courses.get('premium', False)
-    concept_name = decode_url_like_string(concept_name)
-    course_name = decode_url_like_string(course_name)
+    is_premium = user.get('premium', False)
 
-    if user_courses and 'courses' in user_courses:
-        for course in user_courses['courses']:
-            if course['course_name'] == course_name:
-                for concept in course.get('concepts', []):
-                    if concept['concept_name'] == concept_name:
+    user_course = next((course for course in user.get('courses', []) if course['course_name'] == course_name), None)
+    if not user_course:
+        print(f"Course {course_name} not found for user {clerk_id}")
+        return []
 
-                        if not is_premium:
-                            return concept['concept_multiple_choice_questions'][:3]
-                        else:
-                            return concept['concept_multiple_choice_questions']
-    return []
+    mcqs = user_course.get('multiple_choice_questions', [])
+
+    # If the user is not premium, return only the first 3 MCQs
+    if not is_premium:
+        mcqs = mcqs[:3]
 
 
 
@@ -519,14 +516,10 @@ def get_flashcards(clerk_id, course_name,concept_name):
     if user_courses and 'courses' in user_courses:
         for course in user_courses['courses']:
             if course['course_name'] == course_name:
-                for concept in course.get('concepts', []):
-                    if concept['concept_name'] == concept_name:
-                        return concept['concept_flashcards']
+                return course['flashcards']
     return None
 
-def decode_url_like_string(url_like_string):
-    decoded = urllib.parse.unquote(url_like_string)
-    return decoded
+def get_due_flashcards(clerk_id):
 
 
 
