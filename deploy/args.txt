@@ -1,0 +1,4 @@
+prod_frontend_dir=
+prod_backend_dir=
+original_string=http://localhost:8080/api/
+replacement_string=https://veida-ai-backend-production.up.railway.app/api/
