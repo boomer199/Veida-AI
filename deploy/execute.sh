@@ -17,6 +17,9 @@ prod_backend_dir=""
 original_string=""
 replacement_string=""
 
+# exclude these directories from being copied
+blackList[0]="veidaai/node_modules"
+
 function remove_invisible_chars() {
     local input="$1"
     # Use 'tr' to remove non-printable characters and control characters
