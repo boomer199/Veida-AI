@@ -19,6 +19,8 @@ replacement_string=""
 
 # exclude these directories from being copied
 blackList[0]="veidaai/node_modules"
+blackList[1]="veidaai/.next"
+blackList[2]="veidaai/.npmrc"
 
 function remove_invisible_chars() {
     local input="$1"
