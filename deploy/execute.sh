@@ -21,6 +21,13 @@ replacement_string=""
 black_list[0]="veidaai/node_modules"
 black_list[1]="veidaai/.next"
 black_list[2]="veidaai/.npmrc"
+black_list[3]="server/venv"
+black_list[4]="server/__pycache__"
+black_list[5]="venv*"
+black_list[6]="mongo.ipynb"
+black_list[7]=".pyc"
+black_list[8]="helpers/__pycache__/*.pyc"
+black_list[9]="*/.env"
 
 # $1 is file path to check
 # returns "true" or "false"
@@ -33,7 +40,7 @@ function is_black_list() {
 
     while [ $index -lt ${#black_list[@]} ]; do
         local black_list_item="${black_list[$index]}"
-        echo "$black_list_item"
+        # echo "$black_list_item"
 
         if [ "$1" = "$black_list_item" ]; then
             is_found="true"
@@ -199,13 +206,18 @@ main() {
     local output_dir="$2"
 
 
-    # if input_dir is indeed a directory
-    if [ -d "$input_dir" ]; then
+    # if input_dir is indeed a directory AND it's not on the black_list
+    if [ $(is_black_list "$input_dir") = "true" ]; then 
+        echo "Black listed. Skipping "$input_dir""
+    # if [ -d "$input_dir" ]; then
+    elif [ -d "$input_dir" ]; then
+    # echo "$input_dir is on the blacklist: $(is_black_list $input_dir)"
+    # if [[ -d "$input_dir" && $(is_black_list "$input_dir") = "false" ]]; then
         local output_path=$(create_output_file_name "$input_dir" "$output_dir")
         # log the filepaths
         # if input_dir is a subdirectory
         if [[ "$input_dir" != "$dev_frontend_dir" && "$input_dir" != "$dev_backend_dir" ]]; then
-            echo "Copying "$input_dir" -> "$output_path""
+            echo "Copying "$input_dir" \n      -> "$output_path""
         # else input_dir is a dev root dir
         else
             echo "Copying "$input_dir" -> "$output_dir""
@@ -261,18 +273,18 @@ clean_args
 # "
 
 # testing blackList looping
-echo "checking a fakedir"
-is_black_list "fakeDir"
-echo -e "\n checking real dir"
-is_black_list "veidaai/.npmrc"
+# echo "checking a fakedir"
+# is_black_list "fakeDir"
+# echo -e "\n checking real dir"
+# is_black_list "veidaai/.npmrc"
 
 ###############################################################
-# # frontend directories
-# rm -r "$prod_frontend_dir"/*                  # burn it down
-# main "$dev_frontend_dir" "$prod_frontend_dir" # then rebuild
+# frontend directories
+rm -r "$prod_frontend_dir"/*                  # burn it down
+main "$dev_frontend_dir" "$prod_frontend_dir" # then rebuild
 
-# # backend directories
-# rm -r "$prod_backend_dir"/*                 # burn it down
-# main "$dev_backend_dir" "$prod_backend_dir" # then rebuild
+# backend directories
+rm -r "$prod_backend_dir"/*                 # burn it down
+main "$dev_backend_dir" "$prod_backend_dir" # then rebuild
 
-# echo -e "\nScript finished. $replacement_count total replacements made"
+echo -e "\nScript finished. $replacement_count total replacements made"
