@@ -18,32 +18,32 @@ original_string=""
 replacement_string=""
 
 # exclude these directories from being copied
-blackList[0]="veidaai/node_modules"
-blackList[1]="veidaai/.next"
-blackList[2]="veidaai/.npmrc"
+black_list[0]="veidaai/node_modules"
+black_list[1]="veidaai/.next"
+black_list[2]="veidaai/.npmrc"
 
 # $1 is file path to check
 # returns "true" or "false"
 # checks if provided filepath is in the blackList[]
-function isBlackList() {
+function is_black_list() {
     local path="$1"
 
-    local isFound="false"
+    local is_found="false"
     local index=0
 
-    while [ $index -lt ${#blackList[@]} ]; do
-        local blackListItem="${blackList[$index]}"
-        echo "$blackListItem"
+    while [ $index -lt ${#black_list[@]} ]; do
+        local black_list_item="${black_list[$index]}"
+        echo "$black_list_item"
 
-        if [ "$1" = "$blackListItem" ]; then
-            isFound="true"
+        if [ "$1" = "$black_list_item" ]; then
+            is_found="true"
             break
         fi
 
         ((index++))
     done
 
-    echo "$isFound"
+    echo "$is_found"
 }
 
 function remove_invisible_chars() {
@@ -262,9 +262,9 @@ clean_args
 
 # testing blackList looping
 echo "checking a fakedir"
-isBlackList "fakeDir"
+is_black_list "fakeDir"
 echo -e "\n checking real dir"
-isBlackList "veidaai/.npmrc"
+is_black_list "veidaai/.npmrc"
 
 ###############################################################
 # # frontend directories
