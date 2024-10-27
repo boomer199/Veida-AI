@@ -21,6 +21,9 @@ replacement_string=""
 blackList[0]="veidaai/node_modules"
 blackList[1]="veidaai/.next"
 blackList[2]="veidaai/.npmrc"
+blackList[3]=".env*.local"
+blackList[4]=".env"
+blackList[5]=".vercel"
 
 function remove_invisible_chars() {
     local input="$1"
