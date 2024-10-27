@@ -25,6 +25,18 @@ blackList[3]=".env*.local"
 blackList[4]=".env"
 blackList[5]=".vercel"
 
+# $1 is file path to check
+function isBlackList() {
+    local path="$1"
+
+    local index=0
+
+    while [ $index -lt ${#blackList[@]} ]; do
+        echo "${my_array[$index]}"
+        ((index++))
+    done
+}
+
 function remove_invisible_chars() {
     local input="$1"
     # Use 'tr' to remove non-printable characters and control characters
@@ -239,12 +251,16 @@ clean_args
 # replace every instance of \""$original_string"\" with \""$replacement_string"\"
 # "
 
-# frontend directories
-rm -r "$prod_frontend_dir"/*                  # burn it down
-main "$dev_frontend_dir" "$prod_frontend_dir" # then rebuild
+# testing blackList looping
+isBlackList
 
-# backend directories
-rm -r "$prod_backend_dir"/*                 # burn it down
-main "$dev_backend_dir" "$prod_backend_dir" # then rebuild
+###############################################################
+# # frontend directories
+# rm -r "$prod_frontend_dir"/*                  # burn it down
+# main "$dev_frontend_dir" "$prod_frontend_dir" # then rebuild
 
-echo -e "\nScript finished. $replacement_count total replacements made"
+# # backend directories
+# rm -r "$prod_backend_dir"/*                 # burn it down
+# main "$dev_backend_dir" "$prod_backend_dir" # then rebuild
+
+# echo -e "\nScript finished. $replacement_count total replacements made"
