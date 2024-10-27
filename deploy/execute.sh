@@ -21,20 +21,29 @@ replacement_string=""
 blackList[0]="veidaai/node_modules"
 blackList[1]="veidaai/.next"
 blackList[2]="veidaai/.npmrc"
-blackList[3]=".env*.local"
-blackList[4]=".env"
-blackList[5]=".vercel"
 
 # $1 is file path to check
+# returns "true" or "false"
+# checks if provided filepath is in the blackList[]
 function isBlackList() {
     local path="$1"
 
+    local isFound="false"
     local index=0
 
     while [ $index -lt ${#blackList[@]} ]; do
-        echo "${my_array[$index]}"
+        local blackListItem="${blackList[$index]}"
+        echo "$blackListItem"
+
+        if [ "$1" = "$blackListItem" ]; then
+            isFound="true"
+            break
+        fi
+
         ((index++))
     done
+
+    echo "$isFound"
 }
 
 function remove_invisible_chars() {
@@ -252,7 +261,10 @@ clean_args
 # "
 
 # testing blackList looping
-isBlackList
+echo "checking a fakedir"
+isBlackList "fakeDir"
+echo -e "\n checking real dir"
+isBlackList "veidaai/.npmrc"
 
 ###############################################################
 # # frontend directories
