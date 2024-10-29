@@ -10,6 +10,11 @@ args_file="deploy/args.txt" # the file that hosts the argument variables
 dev_frontend_dir="veidaai"  # the dev repo's frontend folder
 dev_backend_dir="server"    # the dev repo's backend folder
 
+# gitignore files
+gitignore[0]=".gitgnore"
+gitignore[1]="server/.gitignore"
+gitignore[2]="veidaai/.gitignore"
+
 # variables from the args file
 args=()
 prod_frontend_dir=""
