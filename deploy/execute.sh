@@ -15,9 +15,11 @@ gitignore[0]=".gitgnore"
 gitignore[1]="server/.gitignore"
 gitignore[2]="veidaai/.gitignore"
 
-cleaned_gitignore_1=() # .gitignore
-cleaned_gitignore_2=() # server/.gitignore
-cleaned_gitignore_3=() # veidaai/.gitignore
+cleaned_gitignore_0=() # .gitignore
+cleaned_gitignore_0+=("dig")
+cleaned_gitignore_0+=("scoop")
+cleaned_gitignore_1=() # server/.gitignore
+cleaned_gitignore_2=() # veidaai/.gitignore
 
 # variables from the args file
 args=()
@@ -204,6 +206,31 @@ function create_new_copy {
     fi
 }
 
+# $1 .gitignore file name
+# $2 output array
+handle_gitignores() {    
+    local ignore_file=$1
+    local output_arr=$@
+
+    echo -e "\nhandling "$ignore_file", output_arr: "
+    # echo "${output_arr[@]}"
+    for item in "${output_arr[@]}"; do
+        echo "$item"
+    done
+
+    LINE=1
+    while read -r CURRENT_LINE || [[ -n "$CURRENT_LINE" ]]; do
+        IFS='#' read -r -a array <<< "$CURRENT_LINE"
+
+        if ! [[ -z "${array[0]}" ]]; then
+            continue
+            # $2+=("$LINE") # append the line to the output array
+        fi
+    done < "${gitignore[0]}"
+
+    echo -e ""$1" is cleaned. $2: "$2""
+}
+
 
 # recursively navigate through directories and subdirectories
 # execute substring replacement as we clone from input_dir to output_dir
@@ -263,6 +290,8 @@ extract_args
 assign_args
 clean_args
 
+handle_gitignores ${gitignore[0]} "${cleaned_gitignore_0[@]}"
+
 # echo "
 # _______ARGUMENTS_______
 # original_string:    "$original_string"
@@ -288,12 +317,12 @@ clean_args
 # is_black_list "veidaai/.npmrc"
 
 ###############################################################
-# frontend directories
-rm -r "$prod_frontend_dir"/*                  # burn it down
-main "$dev_frontend_dir" "$prod_frontend_dir" # then rebuild
+# # frontend directories
+# rm -r "$prod_frontend_dir"/*                  # burn it down
+# main "$dev_frontend_dir" "$prod_frontend_dir" # then rebuild
 
-# backend directories
-rm -r "$prod_backend_dir"/*                 # burn it down
-main "$dev_backend_dir" "$prod_backend_dir" # then rebuild
+# # backend directories
+# rm -r "$prod_backend_dir"/*                 # burn it down
+# main "$dev_backend_dir" "$prod_backend_dir" # then rebuild
 
 echo -e "\nScript finished. $replacement_count total replacements made"
