@@ -15,6 +15,12 @@ gitignore[0]=".gitgnore"
 gitignore[1]="server/.gitignore"
 gitignore[2]="veidaai/.gitignore"
 
+# 2D arrays filled with file paths from the gitignores
+cleaned_gitignores=()
+cleaned_gitignores[0]=() # .gitignore
+cleaned_gitignores[1]=() # server/.gitignore
+cleaned_gitignores[2]=() # veidaai/.gitignore
+
 # variables from the args file
 args=()
 prod_frontend_dir=""
