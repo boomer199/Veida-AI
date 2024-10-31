@@ -15,11 +15,9 @@ gitignore[0]=".gitgnore"
 gitignore[1]="server/.gitignore"
 gitignore[2]="veidaai/.gitignore"
 
-# 2D arrays filled with file paths from the gitignores
-cleaned_gitignores=()
-cleaned_gitignores[0]=() # .gitignore
-cleaned_gitignores[1]=() # server/.gitignore
-cleaned_gitignores[2]=() # veidaai/.gitignore
+cleaned_gitignore_1=() # .gitignore
+cleaned_gitignore_2=() # server/.gitignore
+cleaned_gitignore_3=() # veidaai/.gitignore
 
 # variables from the args file
 args=()
@@ -228,10 +226,10 @@ main() {
         # log the filepaths
         # if input_dir is a subdirectory
         if [[ "$input_dir" != "$dev_frontend_dir" && "$input_dir" != "$dev_backend_dir" ]]; then
-            echo "Copying "$input_dir" \n      -> "$output_path""
+            echo -e "Copying "$input_dir"\n     -> "$output_path""
         # else input_dir is a dev root dir
         else
-            echo "Copying "$input_dir" -> "$output_dir""
+            echo -e "Copying "$input_dir"\n     -> "$output_dir""
         fi 
 
         # Loop through all items in the directory
