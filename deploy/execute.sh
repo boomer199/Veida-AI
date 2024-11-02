@@ -64,6 +64,27 @@ function is_black_list() {
     echo "$is_found"
 }
 
+function is_in_gitignore() {
+    local path="$1"
+
+    local is_found="false"
+    local index=0
+
+    while [ $index -lt ${#black_list[@]} ]; do
+        local black_list_item="${black_list[$index]}"
+        # echo "$black_list_item"
+
+        if [ "$1" = "$black_list_item" ]; then
+            is_found="true"
+            break
+        fi
+
+        ((index++))
+    done
+
+    echo "$is_found"
+}
+
 function remove_invisible_chars() {
     local input="$1"
     # Use 'tr' to remove non-printable characters and control characters
@@ -296,6 +317,10 @@ handle_gitignores "${gitignore[0]}" "${cleaned_gitignore_0[@]}"
 handle_gitignores "${gitignore[1]}" "${cleaned_gitignore_1[@]}"
 handle_gitignores "${gitignore[2]}" "${cleaned_gitignore_2[@]}"
 
+# append root's .gitignore to subdirectories' .gitignores for extra safety
+cleaned_git_ignore_1+=("${cleaned_gitignore_0[@]}")
+cleaned_git_ignore_2+=("${cleaned_gitignore_0[@]}")
+
 # echo "
 # _______ARGUMENTS_______
 # original_string:    "$original_string"
@@ -321,12 +346,12 @@ handle_gitignores "${gitignore[2]}" "${cleaned_gitignore_2[@]}"
 # is_black_list "veidaai/.npmrc"
 
 ###############################################################
-# # frontend directories
-# rm -r "$prod_frontend_dir"/*                  # burn it down
-# main "$dev_frontend_dir" "$prod_frontend_dir" # then rebuild
+# frontend directories
+rm -r "$prod_frontend_dir"/*                  # burn it down
+main "$dev_frontend_dir" "$prod_frontend_dir" # then rebuild
 
-# # backend directories
-# rm -r "$prod_backend_dir"/*                 # burn it down
-# main "$dev_backend_dir" "$prod_backend_dir" # then rebuild
+# backend directories
+rm -r "$prod_backend_dir"/*                 # burn it down
+main "$dev_backend_dir" "$prod_backend_dir" # then rebuild
 
 echo -e "\nScript finished. $replacement_count total replacements made"
