@@ -64,17 +64,26 @@ function is_black_list() {
     echo "$is_found"
 }
 
+# $1 is file path to check
+# $2 is the cleaned gitignore array
+# returns "true" or "false"
+# checks if provided filepath is in the gitignore array
 function is_in_gitignore() {
     local path="$1"
+    local gitignore=("${@:2}")
+
+    echo -e "\nContents of gitignore arg:"
+    for item in "${gitignore[@]}"; do
+        echo "$item"
+    done
 
     local is_found="false"
     local index=0
 
-    while [ $index -lt ${#black_list[@]} ]; do
-        local black_list_item="${black_list[$index]}"
-        # echo "$black_list_item"
+    while [ $index -lt ${#gitignore[@]} ]; do
+        local git_ignore_path="${gitignore[$index]}"
 
-        if [ "$1" = "$black_list_item" ]; then
+        if [ "$path" = "$git_ignore_path" ]; then
             is_found="true"
             break
         fi
@@ -82,6 +91,7 @@ function is_in_gitignore() {
         ((index++))
     done
 
+    echo -e "\n"
     echo "$is_found"
 }
 
@@ -232,10 +242,12 @@ function create_new_copy {
 # $2 output array
 handle_gitignores() {    
     local ignore_file=$1
-    local output_arr=$@
+    declare -n output_arr="$2"
+    # local output_arr=$@
+    # declare -n output_arr=("${@:2}")
 
-    echo -e "\nHANDLING "$ignore_file", CONTENTS BEFORE HANDLING: "
-    cat "$ignore_file"
+    # echo -e "\nHANDLING "$ignore_file", CONTENTS BEFORE HANDLING: "
+    # cat "$ignore_file"
 
     LINE=1
     while read -r CURRENT_LINE || [[ -n "$CURRENT_LINE" ]]; do
@@ -247,11 +259,11 @@ handle_gitignores() {
         fi
     done < "$ignore_file"
 
-    echo -e "\n\nCONTENTS AFTER HANDLING:"
-    for item in "${output_arr[@]}"; do
-        # echo -e "$item" | od -a
-        echo "$item"
-    done
+    # echo -e "\n\nCONTENTS AFTER HANDLING:"
+    # for item in "${output_arr[@]}"; do
+    #     # echo -e "$item" | od -a
+    #     echo "$item"
+    # done
 }
 
 
@@ -266,8 +278,10 @@ main() {
 
 
     # if input_dir is indeed a directory AND it's not on the black_list
-    if [ $(is_black_list "$input_dir") = "true" ]; then 
-        echo "Black listed. Skipping "$input_dir""
+    # if [ $(is_black_list "$input_dir") = "true" ]; then 
+    #     echo "Black listed. Skipping "$input_dir""
+    if [ $(is_in_gitignore "$input_dir") = "true" ]; then 
+        echo "Is in .gitignore. Skipping "$input_dir""
     # if [ -d "$input_dir" ]; then
     elif [ -d "$input_dir" ]; then
     # echo "$input_dir is on the blacklist: $(is_black_list $input_dir)"
@@ -313,13 +327,16 @@ extract_args
 assign_args
 clean_args
 
-handle_gitignores "${gitignore[0]}" "${cleaned_gitignore_0[@]}"
-handle_gitignores "${gitignore[1]}" "${cleaned_gitignore_1[@]}"
-handle_gitignores "${gitignore[2]}" "${cleaned_gitignore_2[@]}"
+# handle_gitignores "${gitignore[0]}" "${cleaned_gitignore_0[@]}"
+# handle_gitignores "${gitignore[1]}" "${cleaned_gitignore_1[@]}"
+# handle_gitignores "${gitignore[2]}" "${cleaned_gitignore_2[@]}"
+handle_gitignores "${gitignore[0]}" "cleaned_gitignore_0"
+handle_gitignores "${gitignore[1]}" "cleaned_gitignore_1"
+handle_gitignores "${gitignore[2]}" "cleaned_gitignore_2"
 
 # append root's .gitignore to subdirectories' .gitignores for extra safety
-cleaned_git_ignore_1+=("${cleaned_gitignore_0[@]}")
-cleaned_git_ignore_2+=("${cleaned_gitignore_0[@]}")
+# cleaned_git_ignore_1+=("${cleaned_gitignore_0[@]}")
+# cleaned_git_ignore_2+=("${cleaned_gitignore_0[@]}")
 
 # echo "
 # _______ARGUMENTS_______
@@ -339,19 +356,22 @@ cleaned_git_ignore_2+=("${cleaned_gitignore_0[@]}")
 # replace every instance of \""$original_string"\" with \""$replacement_string"\"
 # "
 
-# testing blackList looping
-# echo "checking a fakedir"
-# is_black_list "fakeDir"
-# echo -e "\n checking real dir"
-# is_black_list "veidaai/.npmrc"
+# testing gitignore identification
+# echo "checking if "fakedir" is in veidaai/.gitignore"
+# is_in_gitignore "fakeDir" "${cleaned_gitignore_2[@]}"
+echo -e "\nchecking if "/node_modules" is in veidaai/.gitignore"
+is_in_gitignore "/node_modules" "${cleaned_gitignore_2[@]}"
+# for item in "${cleaned_gitignore_0[@]}"; do
+#     echo "$item"
+# done
 
 ###############################################################
-# frontend directories
-rm -r "$prod_frontend_dir"/*                  # burn it down
-main "$dev_frontend_dir" "$prod_frontend_dir" # then rebuild
+# # frontend directories
+# rm -r "$prod_frontend_dir"/*                  # burn it down
+# main "$dev_frontend_dir" "$prod_frontend_dir" # then rebuild
 
-# backend directories
-rm -r "$prod_backend_dir"/*                 # burn it down
-main "$dev_backend_dir" "$prod_backend_dir" # then rebuild
+# # backend directories
+# rm -r "$prod_backend_dir"/*                 # burn it down
+# main "$dev_backend_dir" "$prod_backend_dir" # then rebuild
 
 echo -e "\nScript finished. $replacement_count total replacements made"
