@@ -1,4 +1,4 @@
-prod_frontend_dir=
-prod_backend_dir=
+prod_frontend_dir=/c/Users/iziff/Code/veida-ai/prod-frontend-repo
+prod_backend_dir=/c/Users/iziff/Code/veida-ai/prod-backend-repo
 original_string=http://localhost:8080/api/
 replacement_string=https://veida-ai-backend-production.up.railway.app/api/

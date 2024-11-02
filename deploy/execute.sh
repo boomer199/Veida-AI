@@ -11,13 +11,13 @@ dev_frontend_dir="veidaai"  # the dev repo's frontend folder
 dev_backend_dir="server"    # the dev repo's backend folder
 
 # gitignore files
-gitignore[0]=".gitgnore"
+gitignore[0]=".gitignore"
 gitignore[1]="server/.gitignore"
 gitignore[2]="veidaai/.gitignore"
 
 cleaned_gitignore_0=() # .gitignore
-cleaned_gitignore_0+=("dig")
-cleaned_gitignore_0+=("scoop")
+# cleaned_gitignore_0+=("dig")
+# cleaned_gitignore_0+=("scoop")
 cleaned_gitignore_1=() # server/.gitignore
 cleaned_gitignore_2=() # veidaai/.gitignore
 
@@ -206,29 +206,31 @@ function create_new_copy {
     fi
 }
 
+# extract non-commented lines from $1 and append them to the $2 array
 # $1 .gitignore file name
 # $2 output array
 handle_gitignores() {    
     local ignore_file=$1
     local output_arr=$@
 
-    echo -e "\nhandling "$ignore_file", output_arr: "
-    # echo "${output_arr[@]}"
-    for item in "${output_arr[@]}"; do
-        echo "$item"
-    done
+    echo -e "\nHANDLING "$ignore_file", CONTENTS BEFORE HANDLING: "
+    cat "$ignore_file"
 
     LINE=1
     while read -r CURRENT_LINE || [[ -n "$CURRENT_LINE" ]]; do
         IFS='#' read -r -a array <<< "$CURRENT_LINE"
 
-        if ! [[ -z "${array[0]}" ]]; then
-            continue
-            # $2+=("$LINE") # append the line to the output array
+        # if ! [[ -z "${array[0]}" ]]; then
+        if ! [[ -z "$(remove_invisible_chars "${array[0]}")" ]]; then
+            output_arr+=("${array[0]}")
         fi
-    done < "${gitignore[0]}"
+    done < "$ignore_file"
 
-    echo -e ""$1" is cleaned. $2: "$2""
+    echo -e "\n\nCONTENTS AFTER HANDLING:"
+    for item in "${output_arr[@]}"; do
+        # echo -e "$item" | od -a
+        echo "$item"
+    done
 }
 
 
@@ -290,7 +292,9 @@ extract_args
 assign_args
 clean_args
 
-handle_gitignores ${gitignore[0]} "${cleaned_gitignore_0[@]}"
+handle_gitignores "${gitignore[0]}" "${cleaned_gitignore_0[@]}"
+handle_gitignores "${gitignore[1]}" "${cleaned_gitignore_1[@]}"
+handle_gitignores "${gitignore[2]}" "${cleaned_gitignore_2[@]}"
 
 # echo "
 # _______ARGUMENTS_______
