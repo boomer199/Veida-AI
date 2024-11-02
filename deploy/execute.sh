@@ -16,8 +16,6 @@ gitignore[1]="server/.gitignore"
 gitignore[2]="veidaai/.gitignore"
 
 cleaned_gitignore_0=() # .gitignore
-# cleaned_gitignore_0+=("dig")
-# cleaned_gitignore_0+=("scoop")
 cleaned_gitignore_1=() # server/.gitignore
 cleaned_gitignore_2=() # veidaai/.gitignore
 
@@ -27,42 +25,6 @@ prod_frontend_dir=""
 prod_backend_dir=""
 original_string=""
 replacement_string=""
-
-# exclude these directories from being copied
-black_list[0]="veidaai/node_modules"
-black_list[1]="veidaai/.next"
-black_list[2]="veidaai/.npmrc"
-black_list[3]="server/venv"
-black_list[4]="server/__pycache__"
-black_list[5]="venv*"
-black_list[6]="mongo.ipynb"
-black_list[7]=".pyc"
-black_list[8]="helpers/__pycache__/*.pyc"
-black_list[9]="*/.env"
-
-# $1 is file path to check
-# returns "true" or "false"
-# checks if provided filepath is in the blackList[]
-function is_black_list() {
-    local path="$1"
-
-    local is_found="false"
-    local index=0
-
-    while [ $index -lt ${#black_list[@]} ]; do
-        local black_list_item="${black_list[$index]}"
-        # echo "$black_list_item"
-
-        if [ "$1" = "$black_list_item" ]; then
-            is_found="true"
-            break
-        fi
-
-        ((index++))
-    done
-
-    echo "$is_found"
-}
 
 # $1 is file path to check
 # $2 is the cleaned gitignore array
@@ -276,12 +238,9 @@ main() {
     local input_dir="$1"
     local output_dir="$2"
 
-
-    # if input_dir is indeed a directory AND it's not on the black_list
-    # if [ $(is_black_list "$input_dir") = "true" ]; then 
-    #     echo "Black listed. Skipping "$input_dir""
     if [ $(is_in_gitignore "$input_dir") = "true" ]; then 
         echo "Is in .gitignore. Skipping "$input_dir""
+        
     # if [ -d "$input_dir" ]; then
     elif [ -d "$input_dir" ]; then
     # echo "$input_dir is on the blacklist: $(is_black_list $input_dir)"
