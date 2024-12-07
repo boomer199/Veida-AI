@@ -1,3 +1,4 @@
+// Veida AI Landing Page
 "use client";
 
 import React, { useEffect, useState, useRef } from "react";
@@ -30,55 +31,6 @@ export default function Home() {
   useEffect( () => {
     setSlide({num: 1, ref: mobileFlashcardSlideRef})
     reportWindowSize();
-
-    // the rest of this useEffect is a monster that cursor created
-    // I asked the genie to update the slide useState as the user manually scrolled the gallery
-    
-    // const options = {
-    //   root: mobileGalleryRef.current,
-    //   rootMargin: '0px',
-    //   threshold: 0.9
-    // }
-
-    // const observer = new IntersectionObserver((entries) => {
-    //   console.log(entries);
-    //   entries.forEach(entry => {
-    //     if (entry.isIntersecting) {
-    //       let newSlideNum, newRef;
-    //       if (entry.target === mobileFlashcardSlideRef.current) {
-    //         newSlideNum = 1;
-    //         newRef = mobileFlashcardSlideRef;
-    //         console.log("flashcard detected");
-    //       } else if (entry.target === mobileMcqSlideRef.current) {
-    //         newSlideNum = 2;
-    //         newRef = mobileMcqSlideRef;
-    //         console.log("mcq detected");
-    //       } else if (entry.target === mobileNotesSlideRef.current) {
-    //         newSlideNum = 3;
-    //         newRef = mobileNotesSlideRef;
-    //         console.log("notes detected");
-    //       }
-    //       setSlide({ num: newSlideNum, ref: newRef });
-    //     }
-    //   });
-    // }, options);
-
-    // const slides = [mobileFlashcardSlideRef, mobileMcqSlideRef, mobileNotesSlideRef];
-    // console.log(slides);
-    // slides.forEach(slideRef => {
-    //   console.log(slideRef);
-    //   if (slideRef.current) {
-    //     console.log('slideRef.current is true');
-    //     observer.observe(slideRef.current);
-    //   }
-    // });
-
-    // return () => {
-    //   slides.forEach(slideRef => {
-    //     if (slideRef.current) observer.unobserve(slideRef.current);
-    //   });
-    // };
-
   }, []);
 
   function galleryButtonOnClick(direction) {
