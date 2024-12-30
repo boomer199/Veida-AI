@@ -1,45 +1,45 @@
 "use client";
 
 import { useEffect, useState } from 'react';
+import { useAuth, notFound } from '@clerk/nextjs';
 import { useRouter } from 'next/navigation';
-import { useAuth } from '@clerk/nextjs';
+import Loading from '../../components/loading';
 import CheckoutButton from './checkoutbutton';
 import CancelButton from './cancelbutton';
 import './premium.css';
 
-const PremiumPage = () => {
+export default function PremiumPage() {
   const { userId, isLoaded, isSignedIn } = useAuth();
   const router = useRouter();
   const [isPremium, setIsPremium] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    if (isLoaded && !isSignedIn) {
-      router.push('/sign-in');
-    } else if (userId) {
+    const fetchPremiumStatus = async () => {
+      try {
+        const response = await fetch(`http://localhost:8080/api/check_premium_status?clerk_id=${userId}`);
+        if (response.ok) {
+          const data = await response.json();
+          setIsPremium(data.premium);
+        } else {
+          console.error('Failed to fetch premium status:', response.statusText);
+        }
+      } catch (error) {
+        console.error('Error fetching premium status:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    if (isLoaded && isSignedIn && userId) {
       fetchPremiumStatus();
+    } else if (isLoaded && !isSignedIn) {
+      router.push('/sign-in');
     }
   }, [isLoaded, isSignedIn, userId, router]);
 
-  const fetchPremiumStatus = async () => {
-    try {
-      const response = await fetch(`http://localhost:8080/api/check_premium_status?clerk_id=${userId}`);
-      if (response.ok) {
-        const data = await response.json();
-        console.log('Premium status response:', data); // Add this line
-        setIsPremium(data.premium);
-      } else {
-        console.error('Failed to fetch premium status:', response.statusText); // Add this line
-      }
-    } catch (error) {
-      console.error('Error fetching premium status:', error);
-    } finally {
-      setIsLoading(false);
-    }
-  }
-
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <Loading />;
   }
 
   if (isPremium) {
@@ -61,6 +61,4 @@ const PremiumPage = () => {
       </div>
     );
   }
-};
-
-export default PremiumPage;
+}

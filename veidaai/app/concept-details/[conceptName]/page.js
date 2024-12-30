@@ -105,7 +105,7 @@ const ConceptDetailsPage = () => {
     return <Loading />;
   }
 
-  if (pageExists === false || !conceptObj) {
+  if (pageExists === false || isLoading) {
     return <NotFound />;
   }
 
