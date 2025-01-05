@@ -11,7 +11,7 @@ body {
   --white: #F0F0F0;
   --gray: #838383;
   --accent: #C5F4E0;
-  --accent-dimmed: #86E9bE;
+  --accent-dimmed: #86E9bE; 
 
   /* Typography */
   /* font-size: 25px; */
@@ -272,14 +272,14 @@ button.tertiary {
 
   /* stack the column sections for mobile*/
   .double-column-container {
-    padding: 1rem 2rex; /*TODO: write this because Mozilla is allergic to rex  */
+    padding: 1rem 2rex; /* TODO: write this because Mozilla is allergic to rex  */
     flex-direction: column;
     gap: 1.5rem; /*probably tweak the gap later*/
     --column-width: 100%;
   }
 
   .feature-column-text, .feature-column-media {
-    padding: 0 2rex; /*TODO: write this because Mozilla is allergic to rex  */
+    padding: 0 2rex; /* TODO: write this because Mozilla is allergic to rex  */
     width: var(--column-width);
   }
 
@@ -293,4 +293,54 @@ button.tertiary {
     top: 75px;
     font-size: 1.8rem;
   }
+}
+
+
+/** DESIGN SYSTEM IMPORTED FROM FIGMA **/
+.redesign {
+  /* TYPOGRAPHY */
+  /* font-families */
+  --header-fam: "Monument Extended", sans-serif ;
+  --body-fam: "Poppins", sans-serif;
+
+  /* font-weights */
+  --med-weight: 500;
+  --semi-bold: 600;
+  
+  /* fonts */
+  --h1: 40px var(--header-fam);
+  --h2: 30px var(--header-fam);
+  --h3: 26px var(--header-fam);
+  
+  --body-1: normal 16px/24px var(--body-fam);
+  --body-2: var(--med-weight) 18px/24px var(--body-fam);
+  --p2: 22px var(--body-fam);
+
+  --sub-heading-1: var(--med-weight) 16px var(--body-fam);
+  --subtext-14: normal 14px/24px var(--body-fam);
+  
+  --button-font: bold 16px/24px var(--body-fam);
+  --link-font: 12px/24px var(--body-fam);
+
+    
+  /* COLORS */
+  --lesser-black: #2f2f2f;
+  --darker-black: #171717;
+  --gray: #838383;
+  --gray-500: #717680;
+  --gray-200: #e9eaeb;
+  --light-gray: #adadad;
+  --white: #f0f0f0;
+
+  --accent: #c5f4e0;
+
+  /* These color styles appear in the Figma with the format "Accent -1" */
+  --accent-1: #d1f6e6;
+  --accent-2: #ddf9ec;
+  --accent-3: #e8fbf3;
+
+  /* These color styles appear in the Figma with the format "Accent 1" */
+  --accent-dim-1: #92b5a6;
+  --accent-dim-2: #617a70;
+  --accent-dim-3: #35443e;
 }
