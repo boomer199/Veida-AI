@@ -297,7 +297,7 @@ button.tertiary {
 
 
 /** DESIGN SYSTEM IMPORTED FROM FIGMA **/
-.redesign {
+.redesign, .redesign * {
   /* TYPOGRAPHY */
   /* font-families */
   --header-fam: "Monument Extended", sans-serif ;
