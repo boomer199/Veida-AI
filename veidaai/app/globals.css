@@ -307,7 +307,8 @@ button.tertiary {
   --med-weight: 500;
   --semi-bold: 600;
   
-  /* fonts */
+  /* fonts (shorthand to include all individual font properties) */
+  /* https://www.w3schools.com/css/css_font_shorthand.asp */
   --h1: 40px var(--header-fam);
   --h2: 30px var(--header-fam);
   --h3: 26px var(--header-fam);
