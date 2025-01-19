@@ -345,3 +345,61 @@ button.tertiary {
   --accent-dim-2: #617a70;
   --accent-dim-3: #35443e;
 }
+
+
+/* New button designs */
+.redesign button {
+  font: var(--button-font);
+}
+
+.redesign button.secondary {
+  color: var(--accent);
+  border: solid var(--accent);
+  background: transparent;
+}
+
+.redesign button.secondary:hover {
+  background: var(--accent-dim-2);
+}
+
+.redesign button.primary {
+  color: var(--darker-black);
+  border: none;
+  background: var(--accent);
+}
+
+.redesign button.primary:hover {
+  color: var(--accent);
+  background: var(--accent-dim-2);
+}
+
+.redesign button.menu {
+  color: var(--white);
+  border: none;
+  background: var(--lesser-black);
+}
+
+.redesign button.menu:hover {
+  background: var(--accent-dim-1);
+}
+
+/* button sizes */
+/* TODO: rewrite these to use relative units */
+.redesign button.small, .redesign button.large {
+  border-radius: 16px;
+}
+
+.redesign button.small, .redesign button.menu {
+  border-width: 2px;
+  padding: 8px 24px;
+}
+
+.redesign button.large {
+  border-width: 3px;
+  padding: 16px;
+}
+
+.redesign button.modal {
+  border-radius: 8px;
+  padding: 10px 18px;
+}
