@@ -375,13 +375,13 @@ button.tertiary {
   background: var(--accent-dim-2);
 }
 
-.redesign button.menu {
+.redesign button.edit-menu {
   color: var(--white);
   border: none;
   background: var(--lesser-black);
 }
 
-.redesign button.menu:hover {
+.redesign button.edit-menu:hover {
   background: var(--accent-dim-1);
 }
 
@@ -391,7 +391,7 @@ button.tertiary {
   border-radius: 16px;
 }
 
-.redesign button.small, .redesign button.menu {
+.redesign button.small, .redesign button.edit-menu {
   border-width: 2px;
   padding: 8px 24px;
 }
