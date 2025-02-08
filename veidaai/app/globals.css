@@ -309,6 +309,8 @@ button.tertiary {
   
   /* fonts (shorthand to include all individual font properties) */
   /* https://www.w3schools.com/css/css_font_shorthand.asp */
+  --default-font-size: 16px;
+
   --h1: 40px var(--header-fam);
   --h2: 30px var(--header-fam);
   --h3: 26px var(--header-fam);
