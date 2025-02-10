@@ -1,11 +1,13 @@
-import React from 'react'
+import React, { forwardRef } from 'react'
 
-export default function EditMenu({editOnClick, deleteOnClick, renameOnClick}) {
+const EditMenu = forwardRef( ({onEdit, onDelete, onRename}, ref) => {
   return (
-    <div className="edit-menu">
-        <button className="edit-menu" onClick={editOnClick}>Edit</button>
-        <button className="edit-menu"onClick={deleteOnClick}>Delete</button>
-        <button className="edit-menu"onClick={renameOnClick}>Rename</button>
+    <div className="edit-menu" ref={ref}>
+      <button className="edit-menu" onClick={onEdit}>Edit</button>
+      <button className="edit-menu" onClick={onDelete}>Delete</button>
+      <button className="edit-menu" onClick={onRename}>Rename</button>
     </div>
-  )
-}
+  );
+});
+
+export default EditMenu;
