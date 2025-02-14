@@ -37,17 +37,11 @@ export default function EditButton({handleEditProp=emptyFunc, handleDeleteProp=e
   const handleClick = () => {
     setShowMenu(!showMenu);
 
-    // get coordinates from the edit-button
     let editButton = buttonRef.current;
-    let buttonRight = editButton.getBoundingClientRect().right;
-    let buttonTop = editButton.getBoundingClientRect().top;
 
     // display and position the edit-menu
     let editMenu = menuRef.current;
     editMenu.style.display = 'flex';
-    editMenu.style.position = 'fixed';
-    editMenu.style.left = `${buttonRight + 12}px`;
-    editMenu.style.top = `${buttonTop}px`;
   };
 
   return (
