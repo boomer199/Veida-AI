@@ -1,0 +1,37 @@
+div.course-card {
+    --button-size: 40px;
+    --padding: 24px;
+
+    position: relative;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: flex-start;
+    background-color: var(--darker-black);
+    padding: var(--padding);
+}
+
+div.course-card:hover {
+    background: var(--accent-dim-3, #35443E);
+}
+
+/* set vertical margins for the EditButton, course-name, & descr */
+div.course-card > * {
+    margin: var(--padding) 0;
+}
+
+div.course-card > button.edit {
+    margin-top: 0;
+}
+
+div.course-card > h3.course-name {
+    font: var(--h3);
+    color: var(--accent);
+}
+
+/* position in relation to the edit-button */
+div.course-card > div.edit-menu {
+    position: absolute;
+    top: calc( 0.5*var(--padding) + var(--button-size) );
+    right: calc( var(--padding) + var(--button-size) );
+    transform: translate(100%, 0%);
+}
