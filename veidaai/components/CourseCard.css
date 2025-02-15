@@ -5,9 +5,12 @@ div.course-card {
     position: relative;
     display: flex;
     flex-flow: column nowrap;
-    justify-content: flex-start;
-    background-color: var(--darker-black);
+    justify-content: flex-start; /* elements start at top */
+    align-items: flex-start;     /* elements start at left */
+    
     padding: var(--padding);
+    border-radius: var(--padding);
+    background-color: var(--darker-black);
 }
 
 div.course-card:hover {
