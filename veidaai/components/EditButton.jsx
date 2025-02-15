@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import EditMenu from './EditMenu';
+import './EditButton.css';
 
 const emptyFunc = () => {};
 

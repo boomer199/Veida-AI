@@ -1,0 +1,36 @@
+button.edit {
+    position: relative;
+    align-self: flex-end;
+    border-radius: 50%;
+
+    border: 1.5px solid var(--accent);
+    background-color: transparent;
+    padding: 0;
+}
+
+button.edit:hover {
+    /* talk to Sebsastian about this */
+    background-color: var(--accent-dim-2); 
+}
+
+button.edit {
+    /* TODO: add responsive sizing */
+    width: var(--button-size);
+    height: var(--button-size);
+}
+
+button.edit > img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transform-origin: center;
+    margin: 0;
+
+    /* sizing */
+    /* TODO: add responsive sizing */
+    /* calc(half of --button-size) */
+    width: calc(0.5 * var(--button-size));
+    height: calc(0.5 * var(--button-size));
+
+}
