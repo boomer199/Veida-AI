@@ -3,6 +3,7 @@
   padding: 0;
   box-sizing: border-box;
 }
+
 body {
   /* color theme */
   --black: #1E1E1E;
@@ -35,6 +36,17 @@ html, body {
   height: 100%;
   margin: 0;
   padding: 0;
+}
+
+/** custom scrollbar **/
+body {
+  scrollbar-color: var(--accent) transparent;
+  scrollbar-width: thin;
+}
+
+/* this let's the nav bar overlap the scrollbar... */
+html {
+  overflow-x: hidden;
 }
 
 .main {
@@ -352,6 +364,8 @@ button.tertiary {
 /* New button designs */
 .redesign button {
   font: var(--button-font);
+  border-radius: 16px;
+  padding: 16px;
 }
 
 .redesign button.secondary {
