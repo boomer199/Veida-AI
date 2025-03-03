@@ -31,6 +31,20 @@ div.course-card > h3.course-name {
     color: var(--accent);
 }
 
+/* truncate the description */
+/* 
+    TODO: figure out how to multiline before truncation 
+    probably insert a \n at the nth character and use white-space: pre
+*/
+div.course-card > p.course-descr {
+    text-overflow: ellipsis;
+    /* white-space: nowrap; */
+    white-space: pre;
+    overflow: hidden;
+    width: 100%;
+    /* height: 60px; */
+}
+
 /* position in relation to the edit-button */
 div.course-card > div.edit-menu {
     position: absolute;
