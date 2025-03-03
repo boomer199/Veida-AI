@@ -1,0 +1,151 @@
+
+/* wrapper container */
+div.redesign {
+    background-color: gray;
+    padding: 5rem;
+    display: flex;
+    flex-flow: column wrap;
+    gap: 1rem;
+}
+
+.lecture-card, .course-card {
+    position: relative;
+    --button-size: 40px;
+    --padding: 24px;
+}
+
+/* edit menu */
+div.edit-menu {
+    display: flex;
+    flex-flow: column nowrap;
+    width: 140px;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+/* position the edit-menu below the edit-button */
+.course-card > div.edit-menu {
+    position: absolute;
+    top: calc( 0.5*var(--padding) + var(--button-size) );
+    right: calc( var(--padding) + var(--button-size) );
+    transform: translate(100%, 0%);
+}
+
+.lecture-card > div.edit-menu {
+    position: absolute;
+    top: calc( 1.5*var(--padding) + var(--button-size) );
+    right: calc( var(--padding) + var(--button-size) );
+    transform: translate(100%, 0%);
+}
+
+/* position the edit-menu to the right of the edit-button */
+/* .course-card > div.edit-menu, .lecture-card > div.edit-menu {
+    position: absolute;
+    top: 0;
+    right: 16px;
+    transform: translate(100%, 0%);
+} */
+
+/* lecture card component */
+div.lecture-card {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+    /* width: 1152px; */
+    background-color: var(--darker-black);
+    border-radius: 24px;
+    
+    padding: 24px;
+}
+
+div.lecture-card > .lecture-name {
+    width: calc(100% - var(--button-size));
+}
+
+div.lecture-card:hover {
+    background: var(--accent-dim-3, #35443E);
+}
+
+h3.lecture-name {
+    font: var(--h3);
+    color: var(--accent);   
+}
+
+.lecture-description {
+    margin: 24px;
+}
+
+/* course card component */
+div.course-card {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: flex-start;
+
+    background-color: var(--darker-black);
+    padding: 24px;
+}
+
+div.course-card:hover {
+    background: var(--accent-dim-3, #35443E);
+}
+
+div.course-card > * {
+    margin: 24px 0;
+}
+
+div.course-card > button.edit {
+    margin-top: 0;
+}
+
+h3.course-name {
+    font: var(--h3);
+    color: var(--accent);
+}
+
+
+/* edit button */
+button.edit {
+    position: relative;
+    align-self: flex-end;
+    border-radius: 50%;
+
+    border: 1.5px solid var(--accent);
+    background-color: transparent;
+    padding: 0;
+}
+
+button.edit:hover {
+    /* talk to Sebsastian about this */
+    background-color: var(--accent-dim-2); 
+}
+
+/* settings button */
+button.edit > img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transform-origin: center;
+    margin: 0;
+}
+
+
+/* RESPONSIVE SIZING */
+/* TODO: add responsive sizing for the course card */
+div.course-card {
+    width: 368px;
+    /* height: 291px; */
+    border-radius: 24px;
+}
+
+button.edit {
+    width: var(--button-size);
+    height: var(--button-size);
+}
+
+button.edit > img {
+    /* calc(half of --button-size) */
+    width: calc(0.5 * var(--button-size));
+    height: calc(0.5 * var(--button-size));
+}
