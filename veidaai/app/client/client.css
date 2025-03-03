@@ -1,7 +1,7 @@
 .client-page {
   padding: 5%;
   background-color: #1e1e1e;
-  min-height: 100vh;
+  /* min-height: 100vh; */
   color: #f0f0f0;
   font-family: 'Poppins', sans-serif;
 }
@@ -358,3 +358,107 @@
     margin: 0 0 10px 0;
   }
 }
+
+/** REDESIGN STYLES **/
+div.redesign  {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2rem;
+  padding-top: 2rem;
+}
+
+div.redesign > * {
+  margin: 0;
+}
+
+h1#greeting {
+  font: var(--h1);
+  text-align: left;
+}
+
+/* + icon */
+button#add-course > img {
+  margin-right: 16px;
+}
+
+div#course-list {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+  background-color: var(--lesser-black);
+
+  /* scrollbar styling (fully supported) */
+  /* scrollbar-color: var(--accent) var(--gray);
+  scrollbar-width: auto; */
+  overflow-y: auto;   /* add vertical scrollbar when necessary */
+  overflow-x: hidden; /* no horizontal scrollbar */
+
+  /** gap set in media queries **/
+  padding: var(--gap);
+  gap: var(--gap) var(--gap);
+}
+
+/** scrollbar styling (unsupported on Mozilla & Edge < v79) **/
+div#redesign::-webkit-scrollbar {
+  width: 1rem;
+}
+
+div.client-page {
+  scrollbar-color: var(--accent) var(--gray);
+}
+
+/* scrollbar sizing */
+/* div#course-list::-webkit-scrollbar {
+  width: 0.25rem;
+} */
+
+/* scrollbar handle */
+/* div#course-list::-webkit-scrollbar-thumb {
+  background: var(--accent);
+  border-radius: 1rem;
+} */
+
+/* scrollbar track */
+/* div#course-list::-webkit-scrollbar-track {
+  background-color: var(--gray);
+  border-radius: 1rem;
+} */
+
+/* scrollbar stylings for left-margin, and no border radius */
+/* div#course-list::-webkit-scrollbar {
+  width: 1rem;
+}
+div#course-list::-webkit-scrollbar-track {
+  border-left: solid #1e1e1e 0.75rem;
+  border-radius: 0;
+}
+div#course-list::-webkit-scrollbar-thumb {
+  border-left: solid #1e1e1e 0.75rem;
+  border-radius: 0;
+}
+div#course-list::-webkit-scrollbar-corner {
+  display: none;
+}
+div#course-list::-webkit-scrollbar-button {
+  display: none;
+}
+*/
+
+div.course-card {
+  width: calc(33% - 2/3*var(--gap));
+} 
+
+/** RESPONSIVE SIZING **/
+
+/** for desktop **/
+/* @media (min-width: 1024px) {
+  } */
+  div#course-list {
+    --gap: 1rem;
+    border-radius: 48px;
+    /* border-radius: 48px 48px 0 0; */
+    /* height: 60vh; */
+    width: 90%;
+  }
