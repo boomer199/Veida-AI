@@ -4,7 +4,7 @@ import './EditButton.css';
 
 const emptyFunc = () => {};
 
-export default function EditButton({handleEditProp=emptyFunc, handleDeleteProp=emptyFunc, handleRenameProp=emptyFunc}) {
+export default function EditButton({cancelRouting, handleEditProp=emptyFunc, handleDeleteProp=emptyFunc, handleRenameProp=emptyFunc}) {
   const [showMenu, setShowMenu] = useState(false);
   const buttonRef = useRef(null);
   const menuRef = useRef(null);
@@ -19,23 +19,27 @@ export default function EditButton({handleEditProp=emptyFunc, handleDeleteProp=e
     menuRef.current.style.display = 'none';
   };
 
-  const handleEdit = () => {
+  const handleEdit = (event) => {
+    cancelRouting(event);
     handleEditProp();
     closeMenu();
   }
 
-  const handleDelete = () => {
+  const handleDelete = (event) => {
+    cancelRouting(event);
     handleDeleteProp();
     closeMenu();
   }
   
-  const handleRename = () => {
+  const handleRename = (event) => {
+    cancelRouting(event);
     handleRenameProp();
     closeMenu();
   }
 
   // onClick handler for the edit-button
-  const handleClick = () => {
+  const handleClick = (event) => {
+    cancelRouting(event);
     setShowMenu(!showMenu);
 
     let editButton = buttonRef.current;

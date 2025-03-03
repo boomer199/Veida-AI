@@ -392,6 +392,7 @@ button.tertiary {
 .redesign button.edit-menu {
   color: var(--white);
   border: none;
+  border-radius: 0;
   background: var(--lesser-black);
 }
 

@@ -133,9 +133,7 @@ const ClientPage = () => {
         {/* {testCourses.map((course) => <CourseCard name={course.title} descr={course.description}/>)} */}
         {courses.length > 0 ? (
           courses.map((course, index) => (
-            <Link href={`/${formatURL(course.course_name)}`} className="course-link">
-              <CourseCard key={index} name={course.course_name} descr={course.description} />
-            </Link>
+            <CourseCard key={index} name={course.course_name} descr={course.description} />
           ))
         ) : (
           <p className="loading-courses">Please Create a Course.</p>

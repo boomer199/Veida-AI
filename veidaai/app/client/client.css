@@ -400,6 +400,15 @@ div#course-list {
   gap: var(--gap) var(--gap);
 }
 
+div.edit-menu {
+  display: flex;
+  flex-flow: column nowrap;
+  width: 140px;
+  border-radius: 4px;
+  overflow: hidden;
+  z-index: 1; /* edit menu should, be on top */
+}
+
 /** scrollbar styling (unsupported on Mozilla & Edge < v79) **/
 div#redesign::-webkit-scrollbar {
   width: 1rem;
