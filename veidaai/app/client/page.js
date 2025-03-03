@@ -133,7 +133,7 @@ const ClientPage = () => {
         {/* {testCourses.map((course) => <CourseCard name={course.title} descr={course.description}/>)} */}
         {courses.length > 0 ? (
           courses.map((course, index) => (
-            <CourseCard key={index} name={course.course_name} descr={course.description} />
+            <CourseCard key={index} name={course.course_name} descr={course.description} onEdit={()=>handleEditCourse(course)} onDelete={()=>handleDeleteCourse(course.course_name)} />
           ))
         ) : (
           <p className="loading-courses">Please Create a Course.</p>
@@ -142,7 +142,7 @@ const ClientPage = () => {
       </div>
     </div>
 
-      <h1>Course Dashboard</h1>
+      {/* <h1>Course Dashboard</h1>
       <p className="course-dashboard-description">Click "Create New Course." Enter the course details, then upload your lecture slides, notes, text, or image files. Our AI will auto-generate flashcards, summary notes, and multiple-choice questions.</p>
       <div className="course-cards">
         <div className="course-card new-course" onClick={() => setShowCreateForm(true)}>
@@ -170,8 +170,8 @@ const ClientPage = () => {
           ))
         ) : (
           <p className="loading-courses">Please Create a Course.</p>
-        )}
-      </div>
+        )} 
+      </div>*/}
 
       {showCreateForm && (
         <div className="create-course-overlay">
