@@ -8,15 +8,37 @@ export default function EditButton({cancelRouting, handleEditProp=emptyFunc, han
   const [showMenu, setShowMenu] = useState(false);
   const buttonRef = useRef(null);
   const menuRef = useRef(null);
+
   
   // the edit-menu is hidden by default, until the edit-button is clicked
   useEffect(() => {
-    menuRef.current.style.display = 'none';
-  }, []);
+    // menuRef.current.style.display = showMenu ? 'flex' : 'none';
+    
+    // close the edit-menu when the user clicks outside of it
+    function handleClickOutside(event) {
+      event.preventDefault();  // attempt to prevent outside click from triggering anything
+      event.stopPropagation(); // attempt to prevent outside click from triggering anything
+      if(menuRef.current && !menuRef.current.contains(event.target)) {
+        setShowMenu(false);
+      }
+    }
+    
+    // add event listener when the edit-menu is open
+    if(showMenu) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+    
+    // clean up the edit-menu's event listener before attaching a new one
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    }
+
+  }, [showMenu]);
   
   // hide the edit-menu
   const closeMenu = () => {
-    menuRef.current.style.display = 'none';
+    setShowMenu(false);
+    // menuRef.current.style.display = 'none';
   };
 
   const handleEdit = (event) => {
@@ -46,7 +68,7 @@ export default function EditButton({cancelRouting, handleEditProp=emptyFunc, han
 
     // display and position the edit-menu
     let editMenu = menuRef.current;
-    editMenu.style.display = 'flex';
+    // editMenu.style.display = 'flex';
   };
 
   return (
@@ -62,12 +84,14 @@ export default function EditButton({cancelRouting, handleEditProp=emptyFunc, han
         height="40px"
       />
     </button>
-    <EditMenu
-      ref={menuRef}
-      onEdit={handleEdit}
-      onDelete={handleDelete}
-      onRename={handleRename}
-    />
+    {showMenu && (
+      <EditMenu
+        ref={menuRef}
+        onEdit={handleEdit}
+        onDelete={handleDelete}
+        onRename={handleRename}
+      />
+    )}
     </>
   )
 }

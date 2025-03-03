@@ -48,7 +48,6 @@ const ClientPage = () => {
         // Remove duplicates by using a Set
         const uniqueCourses = Array.from(new Set(data.courses.map(course => course.course_name)))
           .map(course_name => data.courses.find(course => course.course_name === course_name));
-        console.log(uniqueCourses);
         setCourses(uniqueCourses);
       } else {
         console.error('Failed to fetch courses');
@@ -122,16 +121,16 @@ const ClientPage = () => {
     <>
 
     <div className="client-page">
-    <div className="redesign">
+    {/* <div className="redesign">
       <h1 id="greeting">HELLO, {user?.firstName.toUpperCase() || 'USER'}!</h1>
-      <button id="add-course" className="secondary">
+      <button id="add-course" className="secondary" onClick={() => setShowCreateForm(true)}>
         <img src="/icons/plus.svg" width="14px" height="14px"/>
         Add Course
       </button>
-      <div id="course-list">
+      <div id="course-list"> */}
         {/* {testCourses.map((course) => <CourseCard name={course.title} descr={course.description.length > 40 ? `${course.description.slice(0, 40)}...` : course.description} />)} */}
         {/* {testCourses.map((course) => <CourseCard name={course.title} descr={course.description}/>)} */}
-        {courses.length > 0 ? (
+        {/* {courses.length > 0 ? (
           courses.map((course, index) => (
             <CourseCard key={index} name={course.course_name} descr={course.description} onEdit={()=>handleEditCourse(course)} onDelete={()=>handleDeleteCourse(course.course_name)} />
           ))
@@ -140,9 +139,9 @@ const ClientPage = () => {
         )}
 
       </div>
-    </div>
+    </div> */}
 
-      {/* <h1>Course Dashboard</h1>
+      <h1>Course Dashboard</h1>
       <p className="course-dashboard-description">Click "Create New Course." Enter the course details, then upload your lecture slides, notes, text, or image files. Our AI will auto-generate flashcards, summary notes, and multiple-choice questions.</p>
       <div className="course-cards">
         <div className="course-card new-course" onClick={() => setShowCreateForm(true)}>
@@ -171,7 +170,7 @@ const ClientPage = () => {
         ) : (
           <p className="loading-courses">Please Create a Course.</p>
         )} 
-      </div>*/}
+      </div>
 
       {showCreateForm && (
         <div className="create-course-overlay">
@@ -206,33 +205,33 @@ const ClientPage = () => {
 
 export default ClientPage;
 
-const testCourses = [
-  {
-    title: 'Foundations of Data Science',
-    description: 'Learn data analysis, visualization, and statistical reasoning using Python, pandas, and NumPy to turn data into insights.'
-  },
-  {
-    title: 'Web Development with React',
-    description: 'Master the art of building dynamic, responsive websites using React. Explore component-based architecture, state management, and hooks while creating modern, production-ready applications.'
-  },
-  {
-    title: 'Introduction to Artificial Intelligence',
-    description: 'Learn machine learning, neural networks, and NLP with a focus on practical applications and AI ethics.'
-  },
-  {
-    title: 'Product Management Essentials',
-    description: 'Gain the skills needed to lead product development teams. Learn how to define product vision, conduct market research, prioritize features, and drive product launches successfully.'
-  },
-  {
-    title: 'Python Programming for Beginners',
-    description: 'Learn Python basics, problem-solving, and build small projects like calculators and games.'
-  },
-  {
-    title: 'Digital Marketing Strategies',
-    description: 'Discover techniques to grow your online presence. This course covers SEO, social media marketing, content creation, and paid advertising to boost brand visibility and drive sales.'
-  },
-  {
-    title: 'Financial Literacy and Budgeting',
-    description: 'Develop a solid understanding of personal finance. Learn how to create budgets, manage debt, invest wisely, and build long-term wealth through practical money management strategies.'
-  }
-];
+// const testCourses = [
+//   {
+//     title: 'Foundations of Data Science',
+//     description: 'Learn data analysis, visualization, and statistical reasoning using Python, pandas, and NumPy to turn data into insights.'
+//   },
+//   {
+//     title: 'Web Development with React',
+//     description: 'Master the art of building dynamic, responsive websites using React. Explore component-based architecture, state management, and hooks while creating modern, production-ready applications.'
+//   },
+//   {
+//     title: 'Introduction to Artificial Intelligence',
+//     description: 'Learn machine learning, neural networks, and NLP with a focus on practical applications and AI ethics.'
+//   },
+//   {
+//     title: 'Product Management Essentials',
+//     description: 'Gain the skills needed to lead product development teams. Learn how to define product vision, conduct market research, prioritize features, and drive product launches successfully.'
+//   },
+//   {
+//     title: 'Python Programming for Beginners',
+//     description: 'Learn Python basics, problem-solving, and build small projects like calculators and games.'
+//   },
+//   {
+//     title: 'Digital Marketing Strategies',
+//     description: 'Discover techniques to grow your online presence. This course covers SEO, social media marketing, content creation, and paid advertising to boost brand visibility and drive sales.'
+//   },
+//   {
+//     title: 'Financial Literacy and Budgeting',
+//     description: 'Develop a solid understanding of personal finance. Learn how to create budgets, manage debt, invest wisely, and build long-term wealth through practical money management strategies.'
+//   }
+// ];
