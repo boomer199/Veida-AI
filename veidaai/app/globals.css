@@ -362,29 +362,35 @@ button.tertiary {
 
 
 /* New button designs */
-.redesign button {
+.redesign button, 
+.redesign form input[type="submit"], 
+.redesign form input[type="button"] {
   font: var(--button-font);
   border-radius: 16px;
   padding: 16px;
 }
 
-.redesign button.secondary {
+.redesign button.secondary,
+.redesign form input[type="button"] {
   color: var(--accent);
   border: solid var(--accent);
   background: transparent;
 }
 
-.redesign button.secondary:hover {
+.redesign button.secondary:hover,
+.redesign form input[type="button"]:hover {
   background: var(--accent-dim-2);
 }
 
-.redesign button.primary {
+.redesign button.primary,
+.redesign form input[type="submit"] {
   color: var(--darker-black);
   border: none;
   background: var(--accent);
 }
 
-.redesign button.primary:hover {
+.redesign button.primary:hover,
+.redesign form input[type="submit"]:hover {
   color: var(--accent);
   background: var(--accent-dim-2);
 }
