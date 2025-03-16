@@ -13,12 +13,10 @@ export default function CourseCard({name, descr, onEdit, onDelete}) {
   }
   
   return (
-    <Link href={`/${formatURL(name)}`} className="course-link">
-    <div className="course-card">
+    <Link href={`/${formatURL(name)}`} className="course-card">
       <EditButton cancelRouting={cancelRouting} handleEditProp={onEdit} handleDeleteProp={onDelete}/>
       <h3 className="course-name">{name}</h3>
       <p className="course-descr">{descr}</p>
-    </div>
     </Link>
   )
 }

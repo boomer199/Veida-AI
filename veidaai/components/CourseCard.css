@@ -1,4 +1,4 @@
-div.course-card {
+.course-card {
     --button-size: 40px;
     --padding: 24px;
 
@@ -13,20 +13,20 @@ div.course-card {
     background-color: var(--darker-black);
 }
 
-div.course-card:hover {
+.course-card:hover {
     background: var(--accent-dim-3, #35443E);
 }
 
 /* set vertical margins for the EditButton, course-name, & descr */
-div.course-card > * {
+.course-card > * {
     margin: var(--padding) 0;
 }
 
-div.course-card > button.edit {
+.course-card > button.edit {
     margin-top: 0;
 }
 
-div.course-card > h3.course-name {
+.course-card > h3.course-name {
     font: var(--h3);
     color: var(--accent);
 }
@@ -36,7 +36,7 @@ div.course-card > h3.course-name {
     TODO: figure out how to multiline before truncation 
     probably insert a \n at the nth character and use white-space: pre
 */
-div.course-card > p.course-descr {
+.course-card > p.course-descr {
     text-overflow: ellipsis;
     /* white-space: nowrap; */
     white-space: pre;
@@ -46,7 +46,7 @@ div.course-card > p.course-descr {
 }
 
 /* position in relation to the edit-button */
-div.course-card > div.edit-menu {
+.course-card > div.edit-menu {
     position: absolute;
     top: calc( 0.5*var(--padding) + var(--button-size) );
     right: calc( var(--padding) + var(--button-size) );
