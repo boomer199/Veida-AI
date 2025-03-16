@@ -22,7 +22,7 @@ export default function NewLectureModal({onLectureCreated, onClose}) {
         
         <div className="modal-button-row">
           <input type="button" value="Cancel" onClick={onClose}></input>
-          <input type="submit" value="Confirm"></input>
+          <input type="submit" value="Next"></input>
         </div>
       </form>
 
