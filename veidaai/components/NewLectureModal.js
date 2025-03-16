@@ -17,7 +17,7 @@ export default function NewLectureModal({onLectureCreated, onClose}) {
         <label htmlFor="name">Lecture Title*</label>
         <input type="text" id="name" name="name" placeholder='E.G., "Cognitive Development in Childhood"'></input>
         
-        <label htmlFor="descr">Course Description*</label>
+        <label htmlFor="descr">Lecture Description*</label>
         <textarea id="descr" name="descr" rows="3" placeholder='E.G., "Exploring Piaget’s stages of cognitive development and their implications."'></textarea>
         
         <div className="modal-button-row">
