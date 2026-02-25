@@ -400,19 +400,12 @@ def route_delete_concept():
         return jsonify({"error": "Concept not found"}), 404
     
 @app.route('/api/check_premium_status', methods=['GET'])
-def check_premium_status(clerk_id=None):
+def route_check_premium_status():
+    clerk_id = request.args.get('clerk_id')
     if not clerk_id:
-        clerk_id = request.args.get('clerk_id')
-        if not clerk_id:
-            return jsonify({"error": "Missing required parameter: clerk_id"}), 400
+        return jsonify({"error": "Missing required parameter: clerk_id"}), 400
 
-    print(f"API called with clerk_id: {clerk_id}")  # Add this line
-    user = db.users.find_one({'clerk_id': clerk_id})
-    if not user:
-        return jsonify({"error": "User not found"}), 404
-
-    print(f"User found: {user}")  # Add this line
-    return jsonify({"premium": user.get('premium', False)})
+    return jsonify({"premium": check_premium_status(clerk_id)})
 
 
 @app.route('/api/extract_text', methods=['POST'])
@@ -549,7 +542,7 @@ def route_create_course():
     if not all([clerk_id, course_name, description, exam_date_str]):
         return jsonify({"error": "Missing required fields"}), 400
     
-    is_premium = check_premium_status(clerk_id).json['premium']  # Pass clerk_id as an argument
+    is_premium = check_premium_status(clerk_id)
     user_courses = get_courses(clerk_id)
     course_count = len(user_courses)
     
